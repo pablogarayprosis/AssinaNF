@@ -1,0 +1,242 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{165AFE27-6DD9-4C9F-B2FB-3CD28BE26120}</ProjectGuid>
+        <ProjectVersion>14.4</ProjectVersion>
+        <FrameworkType>VCL</FrameworkType>
+        <MainSource>AssinaNF.dpr</MainSource>
+        <Base>True</Base>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Application</AppType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
+        <DCC_E>false</DCC_E>
+        <DCC_N>false</DCC_N>
+        <DCC_S>false</DCC_S>
+        <DCC_F>false</DCC_F>
+        <DCC_K>false</DCC_K>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <Icon_MainIcon>AssinaNF_Icon1.ico</Icon_MainIcon>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Keys>CompanyName=PROSIS Informática Ltda;FileDescription=Assina Nota Fiscal;FileVersion=1.1.0.0;InternalName=AssinaNF;LegalCopyright=PROSIS Informática Ltda 2016;LegalTrademarks=PROSIS Informática Ltda 2016;OriginalFilename=AssinaNF.exe;ProductName=Assina NF;ProductVersion=1.1.0.0;Comments=nenhum</VerInfo_Keys>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_UsePackage>tiled;O408br;AnyDAC_PhysMySQL_D17;PortDirect;ScrllPk;ProgressWheelxe3;pkCindyDBXDXE3;DBXSqliteDriver;ACBrDiversos;ACBrTCP;ZipPkg;HsBarcode2DRun;fmx;IndySystem;TeeDB;PkNetGradient;AbkDBStdBDSXE3;raledxe3;vclib;inetdbbde;DBXInterBaseDriver;DataSnapCommon;pkCindyPackDXE3;DbxCommonDriver;vclimg;AnyDAC_PhysMSAcc_D17;dbxcds;GMLib_DXE3_VCL;MetropolisUILiveTile;AnyDAC_PhysSQLITE_D17;Dihav;everliquidindicator;vcldb;vcldsnap;compass;pascalscada;AnyDAC_ComI_D17;AnyDAC_PhysMSSQL_D17;CustomIPTransport;AnyDAC_Comp_D17;vclribbon;ACBr_SPED;dsnap;IndyIPServer;ACBr_MDFe;AnyDAC_PhysODBC_D17;fmxase;vcl;IndyCore;AnyDAC_PhysPg_D17;IndyIPCommon;CloudService;CodeSiteExpressPkg;FmxTeeUI;AnyDAC_PhysDb2_D17;AbkStdBDSXE3;ACBr_NFe2;pkCindyDERDXE3;ACBr_Boleto;ACBr_Sintegra;ACBr_SAT;AnyDAC_PhysASA_D17;inetdbxpress;webdsnap;ACBr_NFSe;RLedxe3;ACBr_LFD;AnyDAC_PhysOracle_D17;BRTF_d5;adortl;pkCindyIEDXE3;fs17;frx17;ACBrOpenSSL;bindcompfmx;AnyDAC_GUIxForms_D17;ACBr_PAF;vcldbx;ACBrCapicom;BMThreadPkgDXE3;GMLib_DXE3;rtl;dbrtl;DbxClientDriver;ACBrSerial;AnyDAC_PhysTDBX_D17;bindcomp;inetdb;button;Tee;rotatexe3;GMLib_DXE3_FMX;xmlrtl;svnui;ibxpress;RLibWinDXE3;IndyProtocols;DBXMySQLDriver;Dialxe3;pascalscada_common;O408_r;vclactnband;bindengine;soaprtl;bindcompdbx;FMXTee;TeeUI;ACBrComum;synapse;bindcompvcl;vclie;PkNewBtn;vcltouch;ACBr_TEFD;websnap;AnyDAC_PhysADS_D17;EmbeddedWebBrowser_XE3;AnyDAC_PhysIB_D17;pkCindyDBCtrlsPackDXE3;ACBrNFeDanfeRV;VclSmp;Intraweb;ParallelPortDesign;DelphiModbusXE3;GMLibEdit_DXE3;dsnapcon;PCN2;AnyDAC_Phys_D17;inet;lcd;fmxobj;a3analogxe3;GSCQBuilderD5;fsDB17;vclx;frxe17;FlEditPk;pkEditP;svn;fmxdae;bdertl;VirtualTreesR;dbexpress;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <DCC_UsePackage>AnyDAC_PhysMySQL_D17;DBXSqliteDriver;fmx;IndySystem;DBXInterBaseDriver;DataSnapCommon;DbxCommonDriver;vclimg;AnyDAC_PhysMSAcc_D17;dbxcds;GMLib_DXE3_VCL;AnyDAC_PhysSQLITE_D17;vcldb;vcldsnap;AnyDAC_ComI_D17;AnyDAC_PhysMSSQL_D17;CustomIPTransport;AnyDAC_Comp_D17;dsnap;IndyIPServer;AnyDAC_PhysODBC_D17;fmxase;vcl;IndyCore;AnyDAC_PhysPg_D17;IndyIPCommon;AnyDAC_PhysDb2_D17;AnyDAC_PhysASA_D17;inetdbxpress;webdsnap;AnyDAC_PhysOracle_D17;bindcompfmx;AnyDAC_GUIxForms_D17;BMThreadPkgDXE3;GMLib_DXE3;rtl;dbrtl;DbxClientDriver;AnyDAC_PhysTDBX_D17;bindcomp;inetdb;GMLib_DXE3_FMX;xmlrtl;IndyProtocols;DBXMySQLDriver;O408_r;vclactnband;bindengine;soaprtl;bindcompdbx;bindcompvcl;vclie;vcltouch;websnap;AnyDAC_PhysADS_D17;AnyDAC_PhysIB_D17;VclSmp;dsnapcon;AnyDAC_Phys_D17;inet;fmxobj;vclx;fmxdae;dbexpress;IndyIPClient;$(DCC_UsePackage)</DCC_UsePackage>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <VerInfo_Release>1</VerInfo_Release>
+        <VerInfo_Keys>CompanyName=PROSIS Informática Ltda;FileDescription=Assina Nota Fiscal;FileVersion=1.5.1.0;InternalName=AssinaNF;LegalCopyright=PROSIS Informática Ltda 2016;LegalTrademarks=PROSIS Informática Ltda 2016;OriginalFilename=AssinaNF.exe;ProductName=Assina NF;ProductVersion=1.5.1.1;Comments=nenhum</VerInfo_Keys>
+        <Manifest_File>None</Manifest_File>
+        <VerInfo_MinorVer>5</VerInfo_MinorVer>
+        <Icon_MainIcon>AssinaNF_Icon.ico</Icon_MainIcon>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <Manifest_File>None</Manifest_File>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=PROSIS Informática Ltda;FileDescription=Assina Nota Fiscal;FileVersion=1.2.0.0;InternalName=AssinaNF;LegalCopyright=PROSIS Informática Ltda 2016;LegalTrademarks=PROSIS Informática Ltda 2016;OriginalFilename=AssinaNF.exe;ProductName=Assina NF;ProductVersion=1.2.0.0;Comments=nenhum</VerInfo_Keys>
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>false</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=PROSIS Informática Ltda;FileDescription=Assina Nota Fiscal;FileVersion=1.6.1.6;InternalName=AssinaNF;LegalCopyright=PROSIS Informática Ltda 2018;LegalTrademarks=PROSIS Informática Ltda 2018;OriginalFilename=AssinaNF.exe;ProductName=Assina NF;ProductVersion=1.6.1.6;Comments=nenhum</VerInfo_Keys>
+        <VerInfo_Release>1</VerInfo_Release>
+        <Icon_MainIcon>AssinaNF_Icon1.ico</Icon_MainIcon>
+        <VerInfo_MinorVer>6</VerInfo_MinorVer>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="uPrincipal.pas">
+            <Form>FmPrincipal</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="XSuperObject.pas"/>
+        <DCCReference Include="UMsg.pas">
+            <Form>FmMsg</Form>
+        </DCCReference>
+        <DCCReference Include="Geral.pas">
+            <Form>FmGeral</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="..\..\Componentes\superobject\superdate.pas"/>
+        <DCCReference Include="..\..\Componentes\superobject\superobject.pas"/>
+        <DCCReference Include="..\..\Componentes\superobject\supertimezone.pas"/>
+        <DCCReference Include="..\..\Componentes\superobject\supertypes.pas"/>
+        <DCCReference Include="..\..\Componentes\superobject\superxmlparser.pas"/>
+        <DCCReference Include="..\REP\Services\uApi.pas"/>
+        <DCCReference Include="..\REP\Geral\uTipos.pas"/>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">AssinaNF.dpr</Source>
+                </Source>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">0</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">1046</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName"/>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                    <VersionInfoKeys Name="CFBundleName"/>
+                    <VersionInfoKeys Name="CFBundleDisplayName"/>
+                    <VersionInfoKeys Name="CFBundleIdentifier"/>
+                    <VersionInfoKeys Name="CFBundleVersion"/>
+                    <VersionInfoKeys Name="CFBundlePackageType"/>
+                    <VersionInfoKeys Name="CFBundleSignature"/>
+                    <VersionInfoKeys Name="CFBundleAllowMixedLocalizations"/>
+                    <VersionInfoKeys Name="CFBundleExecutable"/>
+                </VersionInfoKeys>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="C:\componentes\ForteReport_bin_dXE3vcl_3.71B\RLibWinDXE3.bpl">File C:\componentes\ForteReport_bin_dXE3vcl_3.71B\RLibWinDXE3.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\FastReports\LibD17\dclfrxDB17.bpl">FastReport 4.0 DB Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k170.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp170.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Comum.bpl">ACBr - Biblioteca Comum, EAD, AAC  - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_OpenSSL.bpl">ACBr - Bind para OpenSSL 1.1.1 - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Diversos.bpl">ACBr - Calculadora, Extenso, Validador, Troco, CMC7, Fala, BarCode, EnterTab, GIF, QrCode, InStore, CargaBal - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Serial.bpl">ACBr - ECF, Balanças, Cheques, Displays, Etiquetas, Gavetas, Terminais, SMS, RFD, Leitores - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Convenio115.bpl">ACBr - Convênio ICMS 115 - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_LFD.bpl">ACBr - Livro Fiscal Digital - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_EDI.bpl">ACBr - Intercâmbio Eletrônico de Dados EDI - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_PAF.bpl">ACBr - Programa Aplicativo Fiscal ECF - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SEF2.bpl">ACBr - SEF2 (eDoc e SEF) - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Sintegra.bpl">ACBr - Sintegra (http://www.projectoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SPED.bpl">ACBr - EFD ICMS/IPI, EFD Contribuições, EFD Contábil - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SPEDImportar.bpl">ACBr - EFD ICMS/IPI, EFD Contribuições, EFD Contábil - Importação - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_DeSTDA.bpl">ACBr - DeSTDA - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Ponto.bpl">ACBr - Ponto Eletrônico - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_LCDPR.bpl">ACBr - LCDPR - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_TCP.bpl">ACBr - Socket, CEP, TCP, IBGE, CNIEE, Suframa, Download, FTP, HTTP, NFPws, IBPTax, CNPJ, CPF, Cotação, E-mail, Feriado - (http://www.projectoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Boleto.bpl">ACBr - Boleto - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_MTER.bpl">ACBr - MTER Componente Servidor de Micro Terminais TCP/IP - (http://www.projectoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Integrador.bpl">ACBr - Integrador - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_NFe.bpl">ACBr - Nota Fiscal Eletrônica - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_NFCeECFVirtual.bpl">ACBr - Implementação ECF Virtual NFCe. Permite usar ACBrECF para emitir NFCe como se fosse um ECF</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_NFeDanfeESCPOS.bpl">ACBr - DANFe para NFC-e Impressora Serial - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_CTe.bpl">ACBr - Conhecimento de Transporte Eletrônico - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_NFSe.bpl">ACBr - Nota Fiscal de Serviço Eletrônica - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_MDFe.bpl">ACBr - Manifesto de Documentos Fiscais Eletrônico - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_GNRE.bpl">ACBr - Guia Nacional de Recolhimento de Tributos Estaduais - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBre_Social.bpl">ACBr - eSocial - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_Reinf.bpl">ACBr - Reinf - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SAT.bpl">ACBr - Cupom Fiscal Eletrônico SAT - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SATECFVirtual.bpl">ACBr - Implementação de ECF Virtual para o SAT. Permite usar ACBrECF para comandar o SAT como se fosse um ECF</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SATExtratoESCPOS.bpl">ACBr - Extrato Cupom Fiscal Eletrônico SAT para Serial - (http://www.projectoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_SATWS.bpl">ACBr - SATWS - Consulta de lotes enviados de CF-e-SAT - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_BlocoX.bpl">ACBr - Bloco X - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_BPe.bpl">ACBr - Bilhete de Passagem Eletrônica - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_BPeDabpeESCPOS.bpl">ACBr - DABPe para BP-e Impressora Serial - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_ANe.bpl">ACBr - Averbação Eletrônica Nacional - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_CIOT.bpl">ACBr - CIOT - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_ONE.bpl">ACBr - Operador Nacional dos Estados - (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Afinco\acbr\Lib\Delphi\LibD17\Win32\ACBr_TEFD.bpl">ACBr - Transferência Eletrônica de Fundos (http://www.projetoacbr.com.br/)</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <Deployment/>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+            <ModelSupport>False</ModelSupport>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+</Project>
