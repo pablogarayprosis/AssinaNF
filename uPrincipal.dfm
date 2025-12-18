@@ -14,7 +14,6 @@ object FmPrincipal: TFmPrincipal
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -23,7 +22,7 @@ object FmPrincipal: TFmPrincipal
   object LbEmp: TLabel
     AlignWithMargins = True
     Left = 4
-    Top = 29
+    Top = 26
     Width = 647
     Height = 22
     Margins.Left = 4
@@ -54,9 +53,25 @@ object FmPrincipal: TFmPrincipal
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitLeft = 48
-    ExplicitTop = 72
     ExplicitWidth = 134
+  end
+  object LbHomologacao: TLabel
+    AlignWithMargins = True
+    Left = 3
+    Top = 51
+    Width = 649
+    Height = 16
+    Align = alTop
+    Caption = 'Ambiente de homologa'#231#227'o'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGray
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    Visible = False
+    StyleElements = [seBorder]
+    ExplicitWidth = 152
   end
   object PnAviso: TPanel
     Left = 0
@@ -78,10 +93,9 @@ object FmPrincipal: TFmPrincipal
     Font.Style = [fsBold]
     ParentBackground = False
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     Visible = False
     StyleElements = []
-    ExplicitTop = 102
     object Image2: TImage
       Left = 49
       Top = 20
@@ -115,10 +129,9 @@ object FmPrincipal: TFmPrincipal
     Left = 0
     Top = 0
     Width = 655
-    Height = 25
+    Height = 22
     AutoSize = True
-    ButtonHeight = 25
-    ButtonWidth = 99
+    ButtonWidth = 93
     Caption = 'ToolBar1'
     List = True
     ShowCaptions = True
@@ -133,7 +146,7 @@ object FmPrincipal: TFmPrincipal
       OnClick = TbConfClick
     end
     object TbPararTimer: TToolButton
-      Left = 103
+      Left = 97
       Top = 0
       AutoSize = True
       Caption = 'Parar Timer'
@@ -141,7 +154,7 @@ object FmPrincipal: TFmPrincipal
       OnClick = TbPararTimerClick
     end
     object TbBuscarNotas: TToolButton
-      Left = 189
+      Left = 182
       Top = 0
       AutoSize = True
       Caption = 'Buscar Notas'
@@ -171,30 +184,10 @@ object FmPrincipal: TFmPrincipal
     ScrollBars = ssVertical
     TabOrder = 2
   end
-  object StatusBar1: TStatusBar
-    Left = 0
-    Top = 547
-    Width = 655
-    Height = 19
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
-    Panels = <
-      item
-        Text = 'vers'#227'o 2.0 2025.12.08'
-        Width = 160
-      end
-      item
-        Width = 50
-      end>
-    ExplicitTop = 539
-    ExplicitWidth = 757
-  end
   object PnConf: TPanel
     AlignWithMargins = True
-    Left = 168
-    Top = 312
+    Left = 153
+    Top = 258
     Width = 655
     Height = 531
     Margins.Left = 4
@@ -227,8 +220,6 @@ object FmPrincipal: TFmPrincipal
       Font.Style = [fsBold]
       ParentFont = False
       StyleElements = [seBorder]
-      ExplicitLeft = 58
-      ExplicitTop = 16
       ExplicitWidth = 130
     end
     object Label2: TLabel
@@ -463,12 +454,25 @@ object FmPrincipal: TFmPrincipal
         'LT_SSHv2')
     end
   end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 547
+    Width = 655
+    Height = 19
+    Panels = <
+      item
+        Width = 200
+      end
+      item
+        Width = 200
+      end>
+  end
   object ImageList1: TImageList
     ColorDepth = cd32Bit
     Left = 64
     Top = 136
     Bitmap = {
-      494C010106000900240010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106000900300010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000010B15045A0C17
@@ -756,44 +760,6 @@ object FmPrincipal: TFmPrincipal
     Left = 552
     Top = 168
   end
-  object IdHTTP1: TIdHTTP
-    IOHandler = IdSSLIOHandlerSocketOpenSSL1
-    AllowCookies = True
-    ProxyParams.BasicAuthentication = False
-    ProxyParams.ProxyPort = 0
-    Request.ContentLength = -1
-    Request.ContentRangeEnd = -1
-    Request.ContentRangeStart = -1
-    Request.ContentRangeInstanceLength = -1
-    Request.Accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-    Request.BasicAuthentication = False
-    Request.UserAgent = 
-      #39'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Tride' +
-      'nt/5.0; MAAU)'
-    Request.Ranges.Units = 'bytes'
-    Request.Ranges = <>
-    HTTPOptions = [hoForceEncodeParams]
-    Left = 304
-    Top = 40
-  end
-  object IdFTP1: TIdFTP
-    OnWorkBegin = IdFTP1WorkBegin
-    OnWorkEnd = IdFTP1WorkEnd
-    IPVersion = Id_IPv4
-    DataPort = 21
-    Password = 'n6v6h4t3'
-    TransferType = ftBinary
-    ListenTimeout = 120000
-    Username = 'prosisautomacaoindustrial'
-    NATKeepAlive.UseKeepAlive = False
-    NATKeepAlive.IdleTimeMS = 0
-    NATKeepAlive.IntervalMS = 0
-    ProxySettings.ProxyType = fpcmNone
-    ProxySettings.Port = 0
-    ReadTimeout = 120000
-    Left = 568
-    Top = 440
-  end
   object TmFtp: TTimer
     Enabled = False
     Interval = 5000
@@ -816,7 +782,7 @@ object FmPrincipal: TFmPrincipal
     Left = 544
     Top = 256
     Bitmap = {
-      494C010105000900240040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010105000900300040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000000100008000000001002000000000000000
       0200000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -5,7 +5,7 @@ interface
 uses
    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
    Vcl.ExtCtrls, Vcl.ImgList, Vcl.Imaging.pngimage, IdMultipartFormData, IniFiles, Vcl.ToolWin, Vcl.ComCtrls, DCPcrypt2, DCPsha1, IdCoder, IdCoder3to4,
-   IdCoderMIME, IdBaseComponent, ACBrNFe, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, IdGlobal, IdExplicitTLSClientServerBase, IdFTP,
+   IdCoderMIME, IdBaseComponent, ACBrNFe, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, IdGlobal, IdExplicitTLSClientServerBase,
    System.IOUtils, XSuperObject, Vcl.AppEvnts, DateUtils, pcnConversaoNFe, PSAPI, TlHelp32, Registry, ACBrDFeSSL, Shellapi, Vcl.ExtDlgs, ACBrEAD,
    ACBrUtil, ACBrDFeUtil, ACBrBase, ACBrDFe, IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL, blcksock, SuperObject, RestClient,
    RestUtils, HttpConnection, ActiveX;
@@ -17,8 +17,8 @@ const
 
    COD_SISTEMA = 91;
    COD_ATUALIZADOR = 92;
-   BASEURL = 'https://farol6592.c33.integrator.host/';
-  // BASEURL = 'http://localhost/affinconfgithub/';
+  // BASEURL = 'https://farol6592.c33.integrator.host/';
+   BASEURL = 'http://localhost/affinconfgithub/';
    CAMINHO_XML_NAO_ASSINADO = 'nfephp/Empresas/$emp/1/Nfe/$amb/entradas/A3/';
    CAMINHO_XML_ASSINADO = 'nfephp/Empresas/$emp/1/Nfe/$amb/assinadas/';
 
@@ -50,8 +50,6 @@ type
       IdDec: TIdDecoderMIME;
       TbConf: TToolButton;
       TmProNot: TTimer;
-      IdHTTP1: TIdHTTP;
-      IdFTP1: TIdFTP;
       MmLog: TMemo;
       TmFtp: TTimer;
       GroupBox1: TGroupBox;
@@ -59,7 +57,6 @@ type
       Label6: TLabel;
       EdPin: TEdit;
       LbCer: TLabel;
-      StatusBar1: TStatusBar;
       TrayIcon1: TTrayIcon;
       ImageList2: TImageList;
       LbEmp: TLabel;
@@ -77,15 +74,13 @@ type
     TbBuscarNotas: TToolButton;
     TbPararTimer: TToolButton;
     LbStatus: TLabel;
-
+    StatusBar1: TStatusBar;
+        LbHomologacao: TLabel;
       procedure FormShow(Sender: TObject);
       procedure TbConfClick(Sender: TObject);
       procedure Button1Click(Sender: TObject);
       procedure TmProNotTimer(Sender: TObject);
-      procedure IdFTP1WorkBegin(ASender: TObject; AWorkMode: TWorkMode; AWorkCountMax: Int64);
-      procedure IdFTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
       procedure TmFtpTimer(Sender: TObject);
-      procedure FormClose(Sender: TObject; var Action: TCloseAction);
       procedure TrayIcon1DblClick(Sender: TObject);
       procedure ApplicationEvents1Minimize(Sender: TObject);
       procedure FormCreate(Sender: TObject);
@@ -99,27 +94,24 @@ type
     procedure TbPararTimerClick(Sender: TObject);
     procedure TbBuscarNotasClick(Sender: TObject);
 
+
    private
     { Private declarations }
-      arquivoConfiguracao, varCod, empresa, varFil, varUsu, varSen, varCer, varPin,
-         varNomEmp, varCnpjEmp, arquivoConfiguracaoXML, diretorioXmlAssinado,
-         CNPJemp, amb, ambiente, tokenid, token, diretorioRaiz,
-         diretorioXmlBaixado: string;
-      varEndWork, varIni: Boolean;
-      varMes, varAno: Integer;
+      arquivoConfiguracao, codigoEmpresa, filial, usuario, senha, Certificado,
+      Pin, arquivoConfiguracaoXML, diretorioXmlAssinado,
+      CNPJemp, ambiente, tokenid, token, diretorioRaiz,
+      diretorioXmlBaixado, caminhoXMLNaoAssinado, caminhoXMLAssinado: string;
+      pararThread: Boolean;
+      mes, ano, codigoAmbiente: Integer;
       ACBrNFe1: TACBrNFe;
       function GravaArquivoConfiguracao: Boolean;
-      procedure configuraacbr;
+      procedure ConfigurarAcbr;
       function LeArquivoConfiguracao: Boolean;
       function ValidaCampos: Boolean;
       function AssinaXML(arquivoConfiguracao, varXml: string; varNF: Integer): string;
       function FileSize(fileName: WideString): Int64;
       function FormatByteSize(const bytes: LongInt): string;
-      function ValidaSenha: Boolean;
-      function ValidaDadosLogin: Boolean;
-      function ValidaTempo: Boolean;
       function VerificaAtualizacoes: Boolean;
-      function Login: Boolean;
       procedure ConfiguraCertificadoDigital;
       procedure Log(varMsg: string);
       procedure TrocaIcone(varIco: Integer);
@@ -127,21 +119,23 @@ type
       procedure BuscaAssinaNota;
       procedure CriaEntradaRegistro;
       function RodarComoAdministrador(HWND: HWND; arquivoConfiguracao, varPar: string): Boolean;
-      function Buscadados(cod_emp: string): Boolean;
-      function carta(arq: TStrings; xml: string): TStrings;
-      function cancela(arq: TStrings; xml: string): TStrings;
-      function manifesto(arq: TStrings; xml: string): TStrings;
-      function inut(arq: TStrings; xml: string): TStrings;
-      function atualizacarta(chave: string): Boolean;
+      function Buscadados: Boolean;
+      function CartaCorrecao(arq: TStrings; xml: string): TStrings;
+      function CancelarNota(arq: TStrings; xml: string): TStrings;
+      function Manifesto(arq: TStrings; xml: string): TStrings;
+      function Inutilizar(arq: TStrings; xml: string): TStrings;
+      function AtualizarCarta(chave: string): Boolean;
       procedure buscaToken;
-      procedure ExcluirArquivoRemoto(diretorio, arquivo: String);
+      procedure PostExcluirArquivo(xmlNome: String);
       function atualizacancela(chave, xjust: string): Boolean;
       function atualizamanifesto(chave, tipo: string): Boolean;
-      function atualizaInutilizadas(empresa, serie, ini, fim, modelo: string): Boolean;
+      function atualizaInutilizadas(serie, ini, fim, modelo: string): Boolean;
       function VersaoExe: string;
       procedure ChamaAtualizador;
       function VerificarSeAplicaticoEstarRodandoPeloNomeDoExecutavel(Nome: string): Boolean;
-      function BuscarDadosApi(url, postString: string): string;
+      function Post(url, postString: string): string;
+      procedure MostrarNotificacao(titulo, mensagem: String);
+
    public
 
     { Public declarations }
@@ -187,7 +181,7 @@ begin
       ACBrNFe1.NotasFiscais.Delete(0);
    Log((arquivoConfiguracao));
    Log(IntToStr(varNF));
-   configuraacbr;
+   ConfigurarAcbr;
    ACBrNFe1.NotasFiscais.LoadFromFile(arquivoConfiguracao, False);
    tokenid := '';
    token := '';
@@ -202,14 +196,12 @@ begin
       ACBrNFe1.Configuracoes.Geral.ModeloDF := moNFe;
    Log('Assinando...');
 
-   configuraacbr;
+   ConfigurarAcbr;
   // ACBrNFe1.Configuracoes.Geral.IncluirQRCodeXMLNFCe := false;
    ACBrNFe1.NotasFiscais.Assinar;
    Result := ACBrNFe1.NotasFiscais.Items[0].xml;
    Log('Nota assinada com sucesso.');
-   TrayIcon1.BalloonTitle := 'Nota Número: ' + IntToStr(varNF);
-   TrayIcon1.ShowBalloonHint;
-   TrayIcon1.BalloonHint := 'Nota assinada com sucesso.';
+   MostrarNotificacao('Nota Número: ' + IntToStr(varNF), 'Nota assinada com sucesso.');
 
   // verifica se o arquivo já existe localmente
    if FileExists(diretorioXmlAssinado + varXml) then
@@ -238,7 +230,7 @@ begin
          postString := postString + '&FUNCAO=atualizamanifesto';
          postString := postString + '&CHAVE=' + chave;
          postString := postString + '&TIPO=' + TIPO;
-         S := BuscarDadosApi('buscadados.php', postString);
+         S := Post('buscadados.php', postString);
          S := Trim(S);
          if Copy(S, 1, 4) = 'Erro' then
          begin
@@ -269,7 +261,7 @@ begin
          postString := postString + '&FUNCAO=atualizacancela';
          postString := postString + '&CHAVE=' + chave;
          postString := postString + '&JUST=' + xjust;
-         S := BuscarDadosApi('buscadados.php', postString);
+         S := Post('buscadados.php', postString);
          S := Trim(S);
          if Copy(S, 1, 4) = 'Erro' then
          begin
@@ -297,8 +289,8 @@ begin
       try
          postString := 'CONTROLE=010889';
          postString := postString + '&FUNCAO=Buscatoken';
-         postString := postString + '&COD_EMPRESA=' + EdEmp.text;
-         S := BuscarDadosApi('buscadados.php', postString);
+         postString := postString + '&COD_EMPRESA=' + codigoEmpresa;
+         S := Post('buscadados.php', postString);
          S := Trim(S);
          if Copy(S, 1, 4) = 'Erro' then
          begin
@@ -327,7 +319,7 @@ begin
    end;
 end;
 
-function TFmPrincipal.atualizaInutilizadas(empresa, serie, ini, fim, modelo: string): Boolean;
+function TFmPrincipal.atualizaInutilizadas(serie, ini, fim, modelo: string): Boolean;
 var
    S, postString: string;
    obj, obj2: ISuperObject;
@@ -339,12 +331,12 @@ begin
       try
          postString := 'CONTROLE=010889';
          postString := postString + '&FUNCAO=atualizaInutilizadas';
-         postString := postString + '&COD_EMPRESA=' + empresa;
+         postString := postString + '&COD_EMPRESA=' + codigoEmpresa;
          postString := postString + '&SERIE=' + serie;
          postString := postString + '&INI=' + ini;
          postString := postString + '&FIM=' + fim;
          postString := postString + '&MODELO=' + modelo;
-         S := BuscarDadosApi('buscadados.php', postString);
+         S := Post('buscadados.php', postString);
          S := Trim(S);
          if Copy(S, 1, 4) = 'Erro' then
          begin
@@ -361,7 +353,7 @@ begin
    end;
 end;
 
-function TFmPrincipal.atualizacarta(chave: string): Boolean;
+function TFmPrincipal.AtualizarCarta(chave: string): Boolean;
 var
    S, postString: string;
    obj, obj2: ISuperObject;
@@ -374,7 +366,7 @@ begin
          postString := 'CONTROLE=010889';
          postString := postString + '&FUNCAO=atualizacarta';
          postString := postString + '&CHAVE=' + chave;
-         S := BuscarDadosApi('buscadados.php', postString);
+         S := Post('buscadados.php', postString);
          S := Trim(S);
          if Copy(S, 1, 4) = 'Erro' then
          begin
@@ -407,12 +399,10 @@ begin
          ShowMessage('Configuração salva com sucesso!');
          LeArquivoConfiguracao;
          PnConf.Visible := False;
-         if Login then
-         begin
-            ConfiguraCertificadoDigital;
+         ConfiguraCertificadoDigital;
+         if Buscadados then
             TmFtp.Enabled := True;
-            Buscadados(empresa);
-         end;
+
       end;
 end;
 
@@ -420,7 +410,7 @@ procedure TFmPrincipal.BuscaAssinaNota;
 var
    FileNames: TStringList;
    varNF, varErro, i: Integer;
-   caminhoXMLNaoAssinado, caminhoXMLAssinado, cami: string;
+   cami: string;
    arq: TextFile; { declarando a variável "arq" do tipo arquivo texto }
    linha, pasta, postString, xmlBaixados, xmlNome: string;
    Arquivo, resposta: TStrings;
@@ -437,19 +427,6 @@ begin
 
       TrocaIcone(1);
       try
-         empresa := EdEmp.text;
-         caminhoXMLNaoAssinado := StringReplace(CAMINHO_XML_NAO_ASSINADO,
-            '$emp', empresa, [rfReplaceAll, rfIgnoreCase]);
-
-         caminhoXMLNaoAssinado := StringReplace(caminhoXMLNaoAssinado,
-            '$amb', ambiente, [rfReplaceAll, rfIgnoreCase]);
-
-         caminhoXMLAssinado := StringReplace(CAMINHO_XML_ASSINADO,
-            '$emp', empresa, [rfReplaceAll, rfIgnoreCase]);
-
-         caminhoXMLAssinado := StringReplace(caminhoXMLAssinado,
-            '$amb', ambiente, [rfReplaceAll, rfIgnoreCase]);
-
          LbStatus.Caption := 'Procurando notas para assinar...';
          LbStatus.Refresh;
 
@@ -477,95 +454,105 @@ begin
          begin
             LbStatus.Caption := 'Nenhuma nota encontrada';
             LbStatus.Refresh;
+            Exit;
          end;
+
+         Buscadados;
 
          for i := 0 to obj.AsArray.Length - 1 do
          begin
-            Sleep(100);
-            objXML := SO(obj.AsArray.S[i]);
-            xmlNome := objXML.AsObject.S['nome'];
-            Log(xmlNome);
-
-            Buscadados(empresa);
-            FmPrincipal.Show;
             try
-               MyClass.Download(BASEURL + caminhoXmlNaoAssinado + xmlNome,
-                   diretorioXmlBaixado + xmlNome);
+               Sleep(100);
+               objXML := SO(obj.AsArray.S[i]);
+               xmlNome := objXML.AsObject.S['nome'];
+               Log(xmlNome);
+
+
+               FmPrincipal.Show;
+               try
+                  MyClass.Download(BASEURL + caminhoXmlNaoAssinado + xmlNome,
+                      diretorioXmlBaixado + xmlNome);
+               except
+                  on e:Exception do
+                  begin
+                     Log('Erro ao baixar arquivo: ' + e.message);
+                     Continue;
+                  end;
+               end;
+
+               if not FileExists(diretorioXmlBaixado + xmlNome) then
+               begin
+                  Log('O arquivo ' + xmlNome + ' não foi baixado');
+                  Continue;
+               end;
+
+               linha := diretorioXmlBaixado + xmlNome;
+               Arquivo := TStringList.Create;
+               Arquivo.LoadFromFile(diretorioXmlBaixado + xmlNome);
+               linha := Trim(Arquivo[0]);
+               pasta := '';
+               if (linha = 'canc') then
+               begin
+                  resposta := CancelarNota(Arquivo, xmlNome);
+                  if resposta.count = 0 then
+                  begin
+                     PostExcluirArquivo(xmlNome);
+                     Continue;
+                  end;
+                  pasta := 'canceladas'
+               end;
+
+               if (linha = 'mani') then
+               begin
+                  resposta := manifesto(Arquivo, xmlNome);
+                  pasta := 'eventos'
+               end;
+
+               if (linha = 'inut') then
+               begin
+                  resposta := Inutilizar(Arquivo, xmlNome);
+                  if resposta.count = 0 then
+                  begin
+                     PostExcluirArquivo(xmlNome);
+                     Continue;
+                  end;
+                  pasta := 'inutilizadas';
+               end;
+
+               if (linha = 'carta') then
+               begin
+                  resposta := CartaCorrecao(Arquivo, xmlNome);
+                  pasta := 'cartacorrecao';
+               end;
+
+               if pasta = '' then
+               begin
+                  pasta := 'assinadas';
+                  varNF := StrToInt(Copy(xmlNome, 26, 9));
+                  Log('Nota: ' + IntToStr(varNF));
+                  AssinaXML(diretorioXmlBaixado + xmlNome, xmlNome, varNF);
+               end;
+
+               Sleep(50);
+
+               Log('atualizar nota assinada: ' + postString + ' >> ' + diretorioXmlAssinado + xmlNome);
+
+               postString := 'CONTROLE=010889&FUNCAO=receberArquivo' +
+                  '&diretorio_upload=' + caminhoXmlAssinado;
+               api.Post('buscadados.php', postString, 'arquivo=' + diretorioXmlAssinado + xmlNome);
+
+               log('resposta enviar nota: ' + api.responseBody);
+               Sleep(100);
+
+               Log('Arquivo XML assinado da Nota número: ' + IntToStr(varNF)
+                  + ' enviado corretamente. Sua nota pode ser transmitida.');
+
+
+               PostExcluirArquivo(xmlNome);
             except
                on e:Exception do
-               begin
-                  Log('Erro ao baixar arquivo: ' + e.message);
-                  Continue;
-               end;
+                  Log('Erro ao ler as notas: ' + e.message);
             end;
-
-            if not FileExists(diretorioXmlBaixado + xmlNome) then
-            begin
-               Log('O arquivo ' + xmlNome + ' não foi baixado');
-               Continue;
-            end;
-
-            linha := diretorioXmlBaixado + xmlNome;
-            Arquivo := TStringList.Create;
-            Arquivo.LoadFromFile(diretorioXmlBaixado + xmlNome);
-            linha := Trim(Arquivo[0]);
-            if (linha = 'canc') then
-            begin
-               resposta := cancela(Arquivo, xmlNome);
-               if resposta.count = 0 then
-               begin
-                  postString := 'CONTROLE=010889&FUNCAO=excluirArquivo' +
-                                '&diretorio='+caminhoXmlNaoAssinado+
-                                '&arquivo='+xmlNome;
-
-                  api.post('buscadados.php', postString);
-                  Log(api.responseBody);
-                  Continue;
-               end;
-               pasta := 'canceladas'
-            end
-            else if (linha = 'mani') then
-            begin
-               resposta := manifesto(Arquivo, xmlNome);
-               pasta := 'eventos'
-            end
-            else if (linha = 'inut') then
-            begin
-               resposta := inut(Arquivo, xmlNome);
-               pasta := 'inutilizadas';
-            end
-            else if (linha = 'carta') then
-            begin
-               resposta := carta(Arquivo, xmlNome);
-               pasta := 'cartacorrecao';
-            end
-            else
-            begin
-               pasta := 'assinadas';
-               varNF := StrToInt(Copy(xmlNome, 26, 9));
-               Log('Nota: ' + IntToStr(varNF));
-               AssinaXML(diretorioXmlBaixado + xmlNome, xmlNome, varNF);
-
-               postString := 'CONTROLE=010889&FUNCAO=excluirArquivo' +
-                             '&diretorio='+caminhoXmlNaoAssinado+
-                             '&arquivo='+xmlNome;
-
-               api.post('buscadados.php', postString);
-               Log('Excluir arquivo recebem assinado: ' + api.responseBody);
-            end;
-
-            Sleep(50);
-
-            postString := 'CONTROLE=010889&FUNCAO=receberArquivo' +
-               '&diretorio_upload=' + caminhoXmlAssinado;
-
-            Log('atualizar nota assinada: ' + postString + ' >> ' + diretorioXmlAssinado + xmlNome);
-            api.Post('buscadados.php', postString, 'arquivo=' + diretorioXmlAssinado + xmlNome);
-            log('resposta enviar nota: ' + api.responseBody);
-            Sleep(100);
-
-            Log('Arquivo XML assinado da Nota número: ' + IntToStr(varNF)
-               + ' enviado corretamente. Sua nota pode ser transmitida.');
          end
       except
          on E: Exception do
@@ -585,12 +572,12 @@ end;
 
 procedure TFmPrincipal.Button1Click(Sender: TObject);
 var
-   varCer: string;
+   Certificado: string;
 begin
 
-   configuraacbr;
-   varCer := ACBrNFe1.SSL.SelecionarCertificado;
-   LbCer.Caption := varCer;
+   ConfigurarAcbr;
+   Certificado := ACBrNFe1.SSL.SelecionarCertificado;
+   LbCer.Caption := Certificado;
 end;
 
 procedure TFmPrincipal.Button2Click(Sender: TObject);
@@ -636,9 +623,9 @@ begin
       res := TStringList.Create;
       ACBrNFe1.NotasFiscais.Clear;
       ACBrNFe1.EventoNFe.Evento.Clear;
-      Buscadados(empresa);
+      Buscadados;
       ACBrNFe1.Configuracoes.Geral.VersaoDF := ve400;
-      if amb = '1' then
+      if codigoAmbiente = 1 then
          ACBrNFe1.Configuracoes.WebServices.Ambiente := taProducao
       else
          ACBrNFe1.Configuracoes.WebServices.Ambiente := taHomologacao;
@@ -664,8 +651,8 @@ begin
          infEvento.detEvento.xjust := arq[3]; // 'Teste de cancelamento';
          infEvento.dhEvento := Now;
       end;
-      configuraacbr;
-      retorno := ACBrNFe1.EnviarEvento(StrToInt(amb));
+      ConfigurarAcbr;
+      retorno := ACBrNFe1.EnviarEvento(codigoAmbiente);
     // MmLog.Lines.Text := UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
       res.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
             Items[0].RetInfEvento.xml));
@@ -689,16 +676,21 @@ begin
          .RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
          EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
       Log(mensagem);
-      TrayIcon1.BalloonTitle := 'Manifesto de destinatario de NF';
-      TrayIcon1.ShowBalloonHint;
-      TrayIcon1.BalloonHint := mensagem;
+      MostrarNotificacao('Manifesto de destinatario de NF', mensagem);
    except
       on E: Exception do
          Log('Error Message: ' + E.message);
    end;
 end;
 
-function TFmPrincipal.cancela(arq: TStrings; xml: string): TStrings;
+procedure TFmPrincipal.MostrarNotificacao(titulo, mensagem: String);
+begin
+   TrayIcon1.BalloonTitle := titulo;
+   TrayIcon1.ShowBalloonHint;
+   TrayIcon1.BalloonHint := mensagem;
+end;
+
+function TFmPrincipal.CancelarNota(arq: TStrings; xml: string): TStrings;
 var
    mensagem, S: string;
    ArquivoTexto: TextFile; { handle do arquivo texto }
@@ -708,9 +700,9 @@ begin
       Result := TStringList.Create;
       ACBrNFe1.NotasFiscais.Clear;
       ACBrNFe1.EventoNFe.Evento.Clear;
-      Buscadados(empresa);
+      Buscadados;
       ACBrNFe1.Configuracoes.Geral.VersaoDF := ve400;
-      if amb = '1' then
+      if codigoAmbiente = 1 then
          ACBrNFe1.Configuracoes.WebServices.Ambiente := taProducao
       else
          ACBrNFe1.Configuracoes.WebServices.Ambiente := taHomologacao;
@@ -729,9 +721,8 @@ begin
          infEvento.detEvento.nProt := arq[2]; // '143160001498040';
          infEvento.detEvento.xjust := arq[3]; // 'Teste de cancelamento';
       end;
-      configuraacbr;
-      retorno := ACBrNFe1.EnviarEvento(StrToInt(amb));
-//      Log(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML));
+      ConfigurarAcbr;
+      retorno := ACBrNFe1.EnviarEvento(codigoAmbiente);
 
       if ACBrNFe1.WebServices.EnvEvento.cStat <> 135 then
       begin
@@ -743,8 +734,6 @@ begin
 
          Result.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
                Items[0].RetInfEvento.xml));
-       // res.Add(inttostr(ACBrNFe1.WebServices.EnvEvento.cStat));
-
 
          if (ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0]
             .RetInfEvento.cStat = 135) then
@@ -766,27 +755,25 @@ begin
          .RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
          EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
       Log(mensagem);
-      TrayIcon1.BalloonTitle := 'Cancelamento de NF';
-      TrayIcon1.ShowBalloonHint;
-      TrayIcon1.BalloonHint := mensagem;
+      MostrarBalão('Cancelamento de NF');
    except
       on E: Exception do
          Log('Error Message: ' + E.message);
    end;
 end;
 
-function TFmPrincipal.inut(arq: TStrings; xml: string): TStrings;
+function TFmPrincipal.Inutilizar(arq: TStrings; xml: string): TStrings;
 var
    S: string;
    res: TStrings;
 begin
    ACBrNFe1.NotasFiscais.Clear;
    res := TStringList.Create;
-   if amb = '1' then
+   if codigoAmbiente = 1 then
       ACBrNFe1.Configuracoes.WebServices.Ambiente := taProducao
    else
       ACBrNFe1.Configuracoes.WebServices.Ambiente := taHomologacao;
-   configuraacbr;
+   ConfigurarAcbr;
    try
       Log('Inutilizando Notas');
       ACBrNFe1.WebServices.Inutiliza(arq[5], // cnpj
@@ -806,27 +793,22 @@ begin
    end;
 
    Log('Inutilização concluida');
-   TrayIcon1.BalloonTitle := 'Inutilização de NF';
-   TrayIcon1.ShowBalloonHint;
-   TrayIcon1.BalloonHint := 'Inutilização concluida';
-  // MmLog.Lines.Text := UTF8Encode(ACBrNFe1.WebServices.Inutilizacao.XML_ProcInutNFe);
+   MostrarNotificacao('Inutilização de NF', 'Inutilização concluida');
    res.Add(UTF8Encode(ACBrNFe1.WebServices.Inutilizacao.XML_ProcInutNFe));
-  // res.Add(inttostr(ACBrNFe1.WebServices.Inutilizacao.cStat));
-  // Showmessage(inttostr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat) +' - ' +ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
    if FileExists(diretorioXmlAssinado + xml) then
    begin
       Log('Arquivo assinado já existe. Excluindo.');
       TFile.Delete(diretorioXmlAssinado + xml);
    end;
-   atualizaInutilizadas(EdEmp.text, arq[1], arq[2], arq[3], arq[6]);
+   atualizaInutilizadas(arq[1], arq[2], arq[3], arq[6]);
    Log('Salvando xml.');
    Log(diretorioXmlAssinado + xml);
    res.SaveToFile(diretorioXmlAssinado + xml);
+   TFile.Delete(diretorioXmlBaixado + xml);
    Result := res;
-  // MmLog.Lines.Text := UTF8Encode(ACBrNFe1.WebServices.Inutilizacao.RetWS);
 end;
 
-function TFmPrincipal.carta(arq: TStrings; xml: string): TStrings;
+function TFmPrincipal.CartaCorrecao(arq: TStrings; xml: string): TStrings;
 var
    mensagem, S: string;
    res: TStrings;
@@ -838,7 +820,7 @@ begin
       ACBrNFe1.Configuracoes.Geral.ModeloDF := moNFCe
    else
       ACBrNFe1.Configuracoes.Geral.ModeloDF := moNFe;
-   if amb = '1' then
+   if codigoAmbiente = 1 then
       ACBrNFe1.Configuracoes.WebServices.Ambiente := taProducao
    else
       ACBrNFe1.Configuracoes.WebServices.Ambiente := taHomologacao;
@@ -852,7 +834,7 @@ begin
       infEvento.nSeqEvento := StrToInt(arq[2]);
       infEvento.detEvento.xCorrecao := arq[3];
    end;
-   configuraacbr;
+   ConfigurarAcbr;
    ACBrNFe1.EnviarEvento(1);
   // MmLog.Lines.Text := UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
    res.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
@@ -865,7 +847,7 @@ begin
    end;
    if (ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0]
       .RetInfEvento.cStat = 135) then
-      atualizacarta(arq[1]);
+      AtualizarCarta(arq[1]);
    Log('Salvando xml.');
    Log(diretorioXmlAssinado + xml);
    res.SaveToFile(diretorioXmlAssinado + xml);
@@ -874,9 +856,7 @@ begin
       Items[0].RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
       EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo;
    Log(mensagem);
-   TrayIcon1.BalloonTitle := 'Carta de correção de NF';
-   TrayIcon1.ShowBalloonHint;
-   TrayIcon1.BalloonHint := mensagem;
+   MostrarNotificacao('Carta de correção de NF', mensagem);
 end;
 
 procedure TFmPrincipal.ChamaAtualizador;
@@ -890,7 +870,7 @@ begin
    end;
 end;
 
-procedure TFmPrincipal.configuraacbr;
+procedure TFmPrincipal.ConfigurarAcbr;
 begin
    ACBrNFe1.Configuracoes.Geral.SSLLib := libWinCrypt;
   // ACBrNFe1.Configuracoes.WebServices.SSLType := LT_TLSv1_2;
@@ -960,8 +940,8 @@ end;
 
 procedure TFmPrincipal.ConfiguraCertificadoDigital;
 begin
-   ACBrNFe1.Configuracoes.Certificados.NumeroSerie := varCer;
-   ACBrNFe1.Configuracoes.Certificados.Senha := varPin;
+   ACBrNFe1.Configuracoes.Certificados.NumeroSerie := Certificado;
+   ACBrNFe1.Configuracoes.Certificados.Senha := Pin;
    ACBrNFe1.Configuracoes.arquivos.PathSchemas := 'Schemas\ve400\';
 end;
 
@@ -983,11 +963,23 @@ begin
    Log('Concluído.');
 end;
 
-procedure TFmPrincipal.ExcluirArquivoRemoto(diretorio, arquivo: String);
+procedure TFmPrincipal.PostExcluirArquivo(xmlNome: String);
 var
    Api: TApi;
+   postString: String;
 begin
    Api := TApi.Create('AFFINCONF');
+   try
+
+      postString := 'CONTROLE=010889&FUNCAO=excluirArquivo' +
+                    '&diretorio='+caminhoXmlNaoAssinado+
+                    '&arquivo='+xmlNome;
+
+      api.post('buscadados.php', postString);
+      Log('Excluir arquivo: ' + api.responseBody);
+   finally
+      api.Destroy;
+   end;
 
 end;
 
@@ -1020,20 +1012,18 @@ begin
       Result := FormatFloat('#.## bytes', bytes);
 end;
 
-procedure TFmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-   if IdFTP1.Connected then
-      IdFTP1.Disconnect;
-end;
-
 procedure TFmPrincipal.FormCreate(Sender: TObject);
 begin
    CoInitialize(nil);
-   varIni := False;
+   pararThread := False;
 
    diretorioRaiz := ExtractFilePath(Application.Exename);
    diretorioXmlBaixado := diretorioRaiz + 'xmls\';
    diretorioXmlAssinado := diretorioRaiz + 'assinadas\';
+
+   Log(diretorioRaiz);
+   Log(diretorioXmlBaixado);
+   Log(diretorioXmlAssinado);
 
    if not DirectoryExists(diretorioXmlBaixado) then
       CreateDir(diretorioXmlBaixado);
@@ -1042,6 +1032,35 @@ begin
       CreateDir(diretorioXmlAssinado);
 
    arquivoConfiguracao := diretorioRaiz + ARQ_CONF;
+
+   if not FileExists(arquivoConfiguracao) then
+   begin
+      PnConf.Top := 8;
+      PnConf.Left := 42;
+      PnConf.Visible := True;
+      Exit;
+   end;
+
+   ACBrNFe1 := TACBrNFe.Create(Self);
+
+   if not LeArquivoConfiguracao then
+      Exit;
+
+   if Buscadados then
+   begin
+      caminhoXMLNaoAssinado := StringReplace(CAMINHO_XML_NAO_ASSINADO,
+         '$emp', codigoEmpresa, [rfReplaceAll, rfIgnoreCase]);
+
+      caminhoXMLNaoAssinado := StringReplace(caminhoXMLNaoAssinado,
+         '$amb', ambiente, [rfReplaceAll, rfIgnoreCase]);
+
+      caminhoXMLAssinado := StringReplace(CAMINHO_XML_ASSINADO,
+         '$emp', codigoEmpresa, [rfReplaceAll, rfIgnoreCase]);
+
+      caminhoXMLAssinado := StringReplace(caminhoXMLAssinado,
+         '$amb', ambiente, [rfReplaceAll, rfIgnoreCase]);
+      TmFtp.Enabled := True;
+   end;
 end;
 
 procedure TFmPrincipal.FormDestroy(Sender: TObject);
@@ -1101,48 +1120,11 @@ begin
 end;
 
 procedure TFmPrincipal.FormShow(Sender: TObject);
-var
-   Form1: TForm1;
+
 begin
-   ACBrNFe1 := TACBrNFe.Create(Self);
-   if not varIni then
-   begin
-      Log(diretorioRaiz);
-      Log(diretorioXmlBaixado);
-      Log(diretorioXmlAssinado);
-      if not FileExists(arquivoConfiguracao) then
-      begin
-         PnConf.Top := 8;
-         PnConf.Left := 42;
-         PnConf.Visible := True;
-      // CriaEntradaRegistro;
-      end
-      else
-      begin
-         varEndWork := False;
-         LeArquivoConfiguracao;
-         if Login then
-         begin
-        // só procura por notas se o sistema não estiver em atualização.
-        // varEmAtu := False;
-        //
-        // //verifica se tem atualização.
-        // //92 - atualizador
-        // //91 - sistema
-        // if VerificaAtualizacoes(92) then
-        // AtualizaSistema(92);
-        //
-        // if VerificaAtualizacoes(91) then
-        // AtualizaSistema(91);
-            TmFtp.Enabled := True;
-            Buscadados(empresa);
-         end;
-      end;
 
-      varIni := True;
-   end;
 
-   StatusBar1.Panels[0].Text := VersaoExe + '.2025.12.10';
+   StatusBar1.Panels[0].Text := VersaoExe + '.2025.12.11.02';
 end;
 
 function TFmPrincipal.GravaArquivoConfiguracao: Boolean;
@@ -1175,18 +1157,6 @@ begin
    end;
 end;
 
-procedure TFmPrincipal.IdFTP1WorkBegin(ASender: TObject; AWorkMode: TWorkMode; AWorkCountMax: Int64);
-begin
-   Log('Iniciando transferência do arquivo');
-   varEndWork := False;
-end;
-
-procedure TFmPrincipal.IdFTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
-begin
-   Log('Transferência completa');
-  // essa variável que vai permitir continuar a assinatura ou o termino da tarefa
-   varEndWork := True;
-end;
 
 procedure TFmPrincipal.Label8Click(Sender: TObject);
 begin
@@ -1203,22 +1173,22 @@ begin
    ArqIni := TIniFile.Create(arquivoConfiguracao);
    try
       try
-         empresa := ArqIni.ReadString('CONFIGURACAO', 'EMPRESA', '000');
-         varFil := ArqIni.ReadString('CONFIGURACAO', 'FILIAL', '000');
-         varUsu := ArqIni.ReadString('CONFIGURACAO', 'USUARIO', '000');
-         varSen := IdDec.DecodeString(ArqIni.ReadString('CONFIGURACAO',
+         codigoEmpresa := ArqIni.ReadString('CONFIGURACAO', 'EMPRESA', '000');
+         filial := ArqIni.ReadString('CONFIGURACAO', 'FILIAL', '000');
+         usuario := ArqIni.ReadString('CONFIGURACAO', 'USUARIO', '000');
+         senha := IdDec.DecodeString(ArqIni.ReadString('CONFIGURACAO',
                'SENHA', '000'));
-         varCer := IdDec.DecodeString(ArqIni.ReadString('CONFIGURACAO',
+         Certificado := IdDec.DecodeString(ArqIni.ReadString('CONFIGURACAO',
                'CERTIFICADO', '000'));
-         varPin := IdDec.DecodeString(ArqIni.ReadString('CONFIGURACAO',
+         Pin := IdDec.DecodeString(ArqIni.ReadString('CONFIGURACAO',
                'PIN', '000'));
          SSL := StrToInt(ArqIni.ReadString('CONFIGURACAO', 'SSL', '5'));
-         EdEmp.text := empresa;
-         EdFil.text := varFil;
+         EdEmp.text := codigoEmpresa;
+         EdFil.text := filial;
          EdUsu.text := 'prosis';
          EdSen.text := 'prosis';
-         LbCer.Caption := varCer;
-         EdPin.text := varPin;
+         LbCer.Caption := Certificado;
+         EdPin.text := Pin;
          CbSSL.ItemIndex := SSL;
          ACBrNFe1.Configuracoes.Certificados.NumeroSerie := LbCer.Caption;
          ACBrNFe1.Configuracoes.arquivos.PathSchemas := 'Schemas\ve400\';
@@ -1228,8 +1198,6 @@ begin
 
          ACBrNFe1.Configuracoes.WebServices.UF := 'RS';
          ACBrNFe1.Configuracoes.WebServices.Ambiente := taProducao;
-
-      // ACBrNFe1.Configuracoes.Certificados.Senha :=
 
          Result := True;
       except
@@ -1248,40 +1216,6 @@ procedure TFmPrincipal.Log(varMsg: string);
 begin
 
    FmPrincipal.MmLog.Lines.Add(DateTimeToStr(Now) + ' :: ' + varMsg);
-end;
-
-function TFmPrincipal.Login: Boolean;
-begin
-   Result := False;
-  // if ValidaSenha then
-   if True then
-   begin
-      if ValidaDadosLogin then
-      begin
-         if ValidaTempo then
-         begin
-        // LbEmp.Caption := 'EMPRESA: ' + varNomEmp;
-            Log('Sistema inicializado com sucesso. Aguardando notas...');
-            Result := True;
-         end
-         else
-         begin
-            PnAviso.Caption := 'Liberação inválida';
-            PnAviso.Visible := True;
-         end;
-      end
-      else
-      begin
-         PnAviso.Caption :=
-            'Login realizado com sucesso mas os dados da empresa não conferem.';
-         PnAviso.Visible := True;
-      end;
-   end
-   else
-   begin
-      PnAviso.Caption := 'Login inválido. Reveja suas configurações.';
-      PnAviso.Visible := True;
-   end;
 end;
 
 procedure TFmPrincipal.PnConfClick(Sender: TObject);
@@ -1329,23 +1263,43 @@ end;
 
 procedure TFmPrincipal.TbPararTimerClick(Sender: TObject);
 begin
+   Application.ProcessMessages;
+   if Assigned(ThAssina) then
+      Log('a thread está rodando');
+
+   pararThread := True;
+
    TmFtp.Enabled := not TmFtp.Enabled;
+   Application.ProcessMessages;
    if TmFtp.Enabled then
       TbPararTimer.Caption := 'Parar timer'
    else
       TbPararTimer.Caption := 'Iniciar timer';
+   TbPararTimer.Refresh;
 end;
 
 procedure TFmPrincipal.TmFtpTimer(Sender: TObject);
 begin
   // só procura por notas se o sistema não estiver em atualização.
   // if not varEmAtu then
+   if Assigned(ThAssina) then
+   begin
+      Log('thread já está rodando');
+      Exit;
+   end;
+
+   if pararThread  then
+   begin
+      Log('a thread deve parar');
+      Exit;
+   end;
 
    ThAssina := TThread.CreateAnonymousThread(
       procedure
       begin
          BuscaAssinaNota;
       end);
+   ThAssina.FreeOnTerminate := True;
    ThAssina.start();
 end;
 
@@ -1407,60 +1361,6 @@ begin
    end;
 end;
 
-function TFmPrincipal.ValidaDadosLogin: Boolean;
-begin
-   Result := True;
-  // if varCod <> empresa then
-  // result := false;
-end;
-
-function TFmPrincipal.ValidaSenha: Boolean;
-var
-   postString, S: string;
-   obj, obj2: ISuperObject;
-   i: Integer;
-begin
-   Result := False;
-   try
-      try
-         postString := 'CONTROLE=010889';
-         postString := postString + '&FUNCAO=Login';
-         postString := postString + '&USUARIO=' + varUsu;
-         postString := postString + '&SENHA=' + varSen;
-         postString := postString + '&EMPRESA=' + EdEmp.text;
-         S := BuscarDadosApi('acesso.php', postString);
-         S := Trim(S);
-         if Copy(S, 1, 4) = 'Erro' then
-         begin
-            ShowMessage(S);
-            Result := False;
-         end
-         else
-         begin
-            if Length(S) > 0 then
-            begin
-               S := StringReplace(S, 'null', '""', [rfReplaceAll]);
-               obj := SO(S);
-               for i := 0 to obj.AsArray.Length - 1 do
-               begin
-                  obj2 := SO(obj.AsArray.S[i]);
-                  varCod := obj2.AsObject.S['TABCLI_COD'];
-                  varNomEmp := obj2.AsObject.S['TABCLI_NOM'];
-                  varCnpjEmp := obj2.AsObject.S['TABCLI_CNPJ'];
-                  varMes := obj2.AsObject.I['TABCLI_MES'];
-                  varAno := obj2.AsObject.I['TABCLI_ANO'];
-               end;
-               Result := True;
-            end;
-         end;
-      except
-         on E: Exception do
-            Log('Error Message: ' + E.message);
-      end;
-   finally
-
-   end;
-end;
 
 procedure CloseMessageBox(AWnd: HWND; AMsg: UINT; AIDEvent: UINT_PTR; ATicks: DWord); stdcall;
 var
@@ -1473,7 +1373,7 @@ begin
       PostMessage(Wnd, WM_CLOSE, 0, 0);
 end;
 
-function TFmPrincipal.Buscadados(cod_emp: string): Boolean;
+function TFmPrincipal.Buscadados: Boolean;
 var
    S, postString: string;
    api: TApi;
@@ -1486,7 +1386,7 @@ begin
       try
          postString := 'CONTROLE=010889';
          postString := postString + '&FUNCAO=BuscaCliente';
-         postString := postString + '&COD_EMPRESA=' + cod_emp;
+         postString := postString + '&COD_EMPRESA=' + codigoEmpresa;
          api.post('buscadados.php', postString);
          S := api.responseBody;
 
@@ -1506,19 +1406,20 @@ begin
                begin
                   obj2 := SO(obj.AsArray.S[i]);
                   CNPJemp := obj2.AsObject.S['cnpj'];
-                  amb := obj2.AsObject.S['ambiente'];
+                  codigoAmbiente := obj2.AsObject.I['ambiente'];
                   if obj2.AsObject.S['razao'] = '' then
                   begin
-                     ShowMessage
-                        ('Razão Social não encontrada. Não é possível continuar');
+                     ShowMessage('Razão Social não encontrada. Não é possível continuar');
                      Exit;
                   end;
                   LbEmp.Caption := obj2.AsObject.S['razao'];
                end;
-               if amb = '2' then
+               if codigoAmbiente = 2 then
                   ambiente := 'homologacao'
                else
                   ambiente := 'producao';
+
+               LbHomologacao.Visible := codigoAmbiente = 2;
 
                Result := True;
             end;
@@ -1537,7 +1438,7 @@ begin
    end;
 end;
 
-function TFmPrincipal.BuscarDadosApi(url, postString: string): string;
+function TFmPrincipal.Post(url, postString: string): string;
 var
    api: TApi;
 begin
@@ -1555,10 +1456,7 @@ begin
    end;
 end;
 
-function TFmPrincipal.ValidaTempo: Boolean;
-begin
-   Result := True;
-end;
+
 
 function TFmPrincipal.VersaoExe: string;
 type
@@ -1608,7 +1506,7 @@ begin
          postString := 'CONTROLE=010889';
          postString := postString + '&FUNCAO=VerificaAtualizacao';
          postString := postString + '&versao=' + versaoatual;
-         S := BuscarDadosApi('VerificaVersao.php', postString);
+         S := Post('VerificaVersao.php', postString);
          S := Trim(S);
          S := StringReplace(S, 'null', '""', [rfReplaceAll]);
          if Copy(S, 1, 4) = 'Erro' then
