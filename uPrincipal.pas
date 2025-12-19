@@ -11,14 +11,15 @@ uses
    RestUtils, HttpConnection, ActiveX;
 
 const
-  // arquivo de configuração (numero da empresa e senha)
    ARQ_CONF = 'conf.ini';
-  // pasta onde o Aplicativo vai procurar os xmls que precisam ser assinados
 
    COD_SISTEMA = 91;
    COD_ATUALIZADOR = 92;
-  // BASEURL = 'https://farol6592.c33.integrator.host/';
-   BASEURL = 'http://localhost/affinconfgithub/';
+   {$IFDEF DEBUG}
+     BASEURL = 'http://localhost/affinconfgithub/';
+   {$ELSE}
+     BASEURL = 'https://farol6592.c33.integrator.host/';
+   {$ENDIF}
    CAMINHO_XML_NAO_ASSINADO = 'nfephp/Empresas/$emp/1/Nfe/$amb/entradas/A3/';
    CAMINHO_XML_ASSINADO = 'nfephp/Empresas/$emp/1/Nfe/$amb/assinadas/';
 
@@ -505,6 +506,11 @@ begin
                if (linha = 'mani') then
                begin
                   resposta := manifesto(Arquivo, xmlNome);
+                  if resposta.count = 0 then
+                  begin
+                     PostExcluirArquivo(xmlNome);
+                     Continue;
+                  end;
                   pasta := 'eventos'
                end;
 
@@ -513,6 +519,7 @@ begin
                   resposta := Inutilizar(Arquivo, xmlNome);
                   if resposta.count = 0 then
                   begin
+                     log('excluindo arquivos');
                      PostExcluirArquivo(xmlNome);
                      Continue;
                   end;
@@ -522,6 +529,11 @@ begin
                if (linha = 'carta') then
                begin
                   resposta := CartaCorrecao(Arquivo, xmlNome);
+                  if resposta.count = 0 then
+                  begin
+                     PostExcluirArquivo(xmlNome);
+                     Continue;
+                  end;
                   pasta := 'cartacorrecao';
                end;
 
@@ -615,12 +627,11 @@ function TFmPrincipal.manifesto(arq: TStrings; xml: string): TStrings;
 var
    mensagem, S: string;
    ArquivoTexto: TextFile; { handle do arquivo texto }
-   res: TStrings;
    retorno: Boolean;
    ret: Integer;
 begin
    try
-      res := TStringList.Create;
+      Result := TStringList.Create;
       ACBrNFe1.NotasFiscais.Clear;
       ACBrNFe1.EventoNFe.Evento.Clear;
       Buscadados;
@@ -654,7 +665,7 @@ begin
       ConfigurarAcbr;
       retorno := ACBrNFe1.EnviarEvento(codigoAmbiente);
     // MmLog.Lines.Text := UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
-      res.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
+      Result.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
             Items[0].RetInfEvento.xml));
     // res.Add(inttostr(ACBrNFe1.WebServices.EnvEvento.cStat));
       ret := ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0]
@@ -669,8 +680,7 @@ begin
 
       Log('Salvando xml');
       Log(diretorioXmlAssinado + xml);
-      res.SaveToFile(diretorioXmlAssinado + xml);
-      Result := res;
+      Result.SaveToFile(diretorioXmlAssinado + xml);
       mensagem :=
          (IntToStr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0]
          .RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
@@ -755,7 +765,7 @@ begin
          .RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
          EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
       Log(mensagem);
-      MostrarBalão('Cancelamento de NF');
+      MostrarNotificacao('Cancelamento de NF', mensagem);
    except
       on E: Exception do
          Log('Error Message: ' + E.message);
@@ -765,10 +775,9 @@ end;
 function TFmPrincipal.Inutilizar(arq: TStrings; xml: string): TStrings;
 var
    S: string;
-   res: TStrings;
 begin
    ACBrNFe1.NotasFiscais.Clear;
-   res := TStringList.Create;
+   Result := TStringList.Create;
    if codigoAmbiente = 1 then
       ACBrNFe1.Configuracoes.WebServices.Ambiente := taProducao
    else
@@ -788,13 +797,14 @@ begin
       on E: Exception do
       begin
          Log('Inutilização não efetuada. ' + E.message);
+
          Exit;
       end;
    end;
 
    Log('Inutilização concluida');
    MostrarNotificacao('Inutilização de NF', 'Inutilização concluida');
-   res.Add(UTF8Encode(ACBrNFe1.WebServices.Inutilizacao.XML_ProcInutNFe));
+   Result.Add(UTF8Encode(ACBrNFe1.WebServices.Inutilizacao.XML_ProcInutNFe));
    if FileExists(diretorioXmlAssinado + xml) then
    begin
       Log('Arquivo assinado já existe. Excluindo.');
@@ -803,17 +813,15 @@ begin
    atualizaInutilizadas(arq[1], arq[2], arq[3], arq[6]);
    Log('Salvando xml.');
    Log(diretorioXmlAssinado + xml);
-   res.SaveToFile(diretorioXmlAssinado + xml);
+   Result.SaveToFile(diretorioXmlAssinado + xml);
    TFile.Delete(diretorioXmlBaixado + xml);
-   Result := res;
 end;
 
 function TFmPrincipal.CartaCorrecao(arq: TStrings; xml: string): TStrings;
 var
    mensagem, S: string;
-   res: TStrings;
 begin
-   res := TStringList.Create;
+   Result := TStringList.Create;
    ACBrNFe1.NotasFiscais.Clear;
    ACBrNFe1.EventoNFe.Evento.Clear;
    if arq[5] = '65' then
@@ -837,7 +845,7 @@ begin
    ConfigurarAcbr;
    ACBrNFe1.EnviarEvento(1);
   // MmLog.Lines.Text := UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.XML);
-   res.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
+   Result.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
          Items[0].RetInfEvento.xml));
   // res.Add(inttostr(ACBrNFe1.WebServices.EnvEvento.cStat));
    if FileExists(diretorioXmlAssinado + xml) then
@@ -850,8 +858,7 @@ begin
       AtualizarCarta(arq[1]);
    Log('Salvando xml.');
    Log(diretorioXmlAssinado + xml);
-   res.SaveToFile(diretorioXmlAssinado + xml);
-   Result := res;
+   Result.SaveToFile(diretorioXmlAssinado + xml);
    mensagem := IntToStr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.
       Items[0].RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
       EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo;
@@ -1124,7 +1131,7 @@ procedure TFmPrincipal.FormShow(Sender: TObject);
 begin
 
 
-   StatusBar1.Panels[0].Text := VersaoExe + '.2025.12.11.02';
+   StatusBar1.Panels[0].Text := VersaoExe + '.2025.12.19';
 end;
 
 function TFmPrincipal.GravaArquivoConfiguracao: Boolean;
@@ -1264,8 +1271,6 @@ end;
 procedure TFmPrincipal.TbPararTimerClick(Sender: TObject);
 begin
    Application.ProcessMessages;
-   if Assigned(ThAssina) then
-      Log('a thread está rodando');
 
    pararThread := True;
 
@@ -1282,12 +1287,6 @@ procedure TFmPrincipal.TmFtpTimer(Sender: TObject);
 begin
   // só procura por notas se o sistema não estiver em atualização.
   // if not varEmAtu then
-   if Assigned(ThAssina) then
-   begin
-      Log('thread já está rodando');
-      Exit;
-   end;
-
    if pararThread  then
    begin
       Log('a thread deve parar');
