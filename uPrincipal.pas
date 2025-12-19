@@ -8,7 +8,7 @@ uses
    IdCoderMIME, IdBaseComponent, ACBrNFe, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, IdGlobal, IdExplicitTLSClientServerBase,
    System.IOUtils, XSuperObject, Vcl.AppEvnts, DateUtils, pcnConversaoNFe, PSAPI, TlHelp32, Registry, ACBrDFeSSL, Shellapi, Vcl.ExtDlgs, ACBrEAD,
    ACBrUtil, ACBrDFeUtil, ACBrBase, ACBrDFe, IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL, blcksock, SuperObject, RestClient,
-   RestUtils, HttpConnection, ActiveX;
+   RestUtils, HttpConnection, ActiveX, ACBrEnterTab;
 
 const
    ARQ_CONF = 'conf.ini';
@@ -65,7 +65,6 @@ type
       PnAviso: TPanel;
       Image2: TImage;
       Label8: TLabel;
-      Bevel1: TBevel;
       OpenPictureDialog1: TOpenPictureDialog;
       RadioGroup1: TRadioGroup;
       IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL;
@@ -77,6 +76,7 @@ type
     LbStatus: TLabel;
     StatusBar1: TStatusBar;
         LbHomologacao: TLabel;
+    ACBrEnterTab1: TACBrEnterTab;
       procedure FormShow(Sender: TObject);
       procedure TbConfClick(Sender: TObject);
       procedure Button1Click(Sender: TObject);

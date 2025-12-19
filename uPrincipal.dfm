@@ -5,7 +5,7 @@ object FmPrincipal: TFmPrincipal
   BorderStyle = bsSingle
   Caption = 'AFFINCO NF - AssinaNF - PROSIS Inform'#225'tica'
   ClientHeight = 566
-  ClientWidth = 655
+  ClientWidth = 685
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object FmPrincipal: TFmPrincipal
     AlignWithMargins = True
     Left = 4
     Top = 26
-    Width = 647
+    Width = 677
     Height = 22
     Margins.Left = 4
     Margins.Top = 4
@@ -42,8 +42,8 @@ object FmPrincipal: TFmPrincipal
   object LbStatus: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 76
-    Width = 649
+    Top = 121
+    Width = 679
     Height = 18
     Align = alBottom
     Caption = 'Aguardando notas...'
@@ -53,13 +53,14 @@ object FmPrincipal: TFmPrincipal
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    ExplicitTop = 76
     ExplicitWidth = 134
   end
   object LbHomologacao: TLabel
     AlignWithMargins = True
     Left = 3
     Top = 51
-    Width = 649
+    Width = 679
     Height = 16
     Align = alTop
     Caption = 'Ambiente de homologa'#231#227'o'
@@ -75,8 +76,8 @@ object FmPrincipal: TFmPrincipal
   end
   object PnAviso: TPanel
     Left = 0
-    Top = 94
-    Width = 655
+    Top = 139
+    Width = 685
     Height = 74
     Margins.Left = 4
     Margins.Top = 4
@@ -96,6 +97,8 @@ object FmPrincipal: TFmPrincipal
     TabOrder = 3
     Visible = False
     StyleElements = []
+    ExplicitTop = 94
+    ExplicitWidth = 655
     object Image2: TImage
       Left = 49
       Top = 20
@@ -128,7 +131,7 @@ object FmPrincipal: TFmPrincipal
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 655
+    Width = 685
     Height = 22
     AutoSize = True
     ButtonWidth = 93
@@ -137,6 +140,7 @@ object FmPrincipal: TFmPrincipal
     ShowCaptions = True
     TabOrder = 1
     StyleElements = [seFont]
+    ExplicitWidth = 655
     object TbConf: TToolButton
       Left = 0
       Top = 0
@@ -164,9 +168,9 @@ object FmPrincipal: TFmPrincipal
   end
   object MmLog: TMemo
     Left = 0
-    Top = 168
-    Width = 655
-    Height = 379
+    Top = 213
+    Width = 685
+    Height = 334
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
@@ -183,20 +187,28 @@ object FmPrincipal: TFmPrincipal
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 2
+    ExplicitTop = 232
+    ExplicitWidth = 655
   end
   object PnConf: TPanel
     AlignWithMargins = True
-    Left = 153
-    Top = 258
-    Width = 655
-    Height = 531
+    Left = -9
+    Top = 9
+    Width = 685
+    Height = 547
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
     BevelOuter = bvNone
     Color = clWhite
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -15
+    Font.Name = 'Open Sans'
+    Font.Style = []
     ParentBackground = False
+    ParentFont = False
     TabOrder = 0
     Visible = False
     StyleElements = []
@@ -205,7 +217,7 @@ object FmPrincipal: TFmPrincipal
       AlignWithMargins = True
       Left = 4
       Top = 4
-      Width = 647
+      Width = 677
       Height = 22
       Margins.Left = 4
       Margins.Top = 4
@@ -224,9 +236,9 @@ object FmPrincipal: TFmPrincipal
     end
     object Label2: TLabel
       Left = 21
-      Top = 86
-      Width = 120
-      Height = 16
+      Top = 85
+      Width = 141
+      Height = 22
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -234,9 +246,9 @@ object FmPrincipal: TFmPrincipal
     end
     object Label3: TLabel
       Left = 21
-      Top = 123
-      Width = 93
-      Height = 16
+      Top = 122
+      Width = 110
+      Height = 22
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -245,8 +257,8 @@ object FmPrincipal: TFmPrincipal
     object Label4: TLabel
       Left = 21
       Top = 233
-      Width = 48
-      Height = 16
+      Width = 58
+      Height = 22
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -255,44 +267,30 @@ object FmPrincipal: TFmPrincipal
     end
     object Label5: TLabel
       Left = 21
-      Top = 197
-      Width = 41
-      Height = 16
+      Top = 196
+      Width = 46
+      Height = 22
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
       Caption = 'Senha:'
       Visible = False
     end
-    object Bevel1: TBevel
-      Left = 0
-      Top = 472
-      Width = 655
-      Height = 59
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
-      Align = alBottom
-      Shape = bsTopLine
-      ExplicitTop = 388
-      ExplicitWidth = 757
-    end
     object Label10: TLabel
       Left = 21
       Top = 159
-      Width = 27
-      Height = 16
+      Width = 28
+      Height = 22
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
       Caption = 'SSL:'
     end
     object EdEmp: TEdit
-      Left = 150
+      Left = 160
       Top = 82
       Width = 177
-      Height = 24
+      Height = 30
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -302,10 +300,10 @@ object FmPrincipal: TFmPrincipal
       TabOrder = 0
     end
     object EdFil: TEdit
-      Left = 150
+      Left = 160
       Top = 119
       Width = 177
-      Height = 24
+      Height = 30
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -315,23 +313,10 @@ object FmPrincipal: TFmPrincipal
       TabOrder = 1
     end
     object EdUsu: TEdit
-      Left = 150
+      Left = 160
       Top = 193
       Width = 177
-      Height = 24
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
-      TabOrder = 2
-      Text = 'prosis'
-      Visible = False
-    end
-    object EdSen: TEdit
-      Left = 150
-      Top = 226
-      Width = 177
-      Height = 24
+      Height = 30
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -340,22 +325,35 @@ object FmPrincipal: TFmPrincipal
       Text = 'prosis'
       Visible = False
     end
+    object EdSen: TEdit
+      Left = 160
+      Top = 230
+      Width = 177
+      Height = 30
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      TabOrder = 4
+      Text = 'prosis'
+      Visible = False
+    end
     object GroupBox1: TGroupBox
       Left = 21
-      Top = 321
-      Width = 293
-      Height = 143
+      Top = 268
+      Width = 316
+      Height = 165
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
       Margins.Bottom = 4
       Caption = ' Certificado Digital '
-      TabOrder = 5
+      TabOrder = 7
       object Label6: TLabel
         Left = 20
-        Top = 90
-        Width = 105
-        Height = 16
+        Top = 101
+        Width = 126
+        Height = 22
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -363,9 +361,9 @@ object FmPrincipal: TFmPrincipal
       end
       object LbCer: TLabel
         Left = 20
-        Top = 60
-        Width = 181
-        Height = 16
+        Top = 71
+        Width = 222
+        Height = 22
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -373,7 +371,7 @@ object FmPrincipal: TFmPrincipal
       end
       object Button1: TButton
         Left = 20
-        Top = 22
+        Top = 33
         Width = 168
         Height = 31
         Margins.Left = 4
@@ -386,9 +384,9 @@ object FmPrincipal: TFmPrincipal
       end
       object EdPin: TEdit
         Left = 20
-        Top = 113
+        Top = 124
         Width = 177
-        Height = 24
+        Height = 30
         Margins.Left = 4
         Margins.Top = 4
         Margins.Right = 4
@@ -397,10 +395,10 @@ object FmPrincipal: TFmPrincipal
       end
     end
     object RadioGroup1: TRadioGroup
-      Left = 21
-      Top = 261
+      Left = 358
+      Top = 70
       Width = 293
-      Height = 39
+      Height = 59
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -411,11 +409,11 @@ object FmPrincipal: TFmPrincipal
       Items.Strings = (
         'Homologa'#231#227'o'
         'Produ'#231#227'o')
-      TabOrder = 6
+      TabOrder = 5
     end
     object BtConf: TButton
       Left = 550
-      Top = 482
+      Top = 498
       Width = 84
       Height = 33
       Margins.Left = 4
@@ -424,14 +422,14 @@ object FmPrincipal: TFmPrincipal
       Margins.Bottom = 4
       Caption = 'Salvar'
       ImageIndex = 0
-      TabOrder = 4
+      TabOrder = 6
       OnClick = BtConfClick
     end
     object CbSSL: TComboBox
-      Left = 150
-      Top = 153
+      Left = 160
+      Top = 156
       Width = 177
-      Height = 28
+      Height = 30
       Margins.Left = 4
       Margins.Top = 4
       Margins.Right = 4
@@ -439,11 +437,11 @@ object FmPrincipal: TFmPrincipal
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -17
-      Font.Name = 'MS Sans Serif'
+      Font.Height = -15
+      Font.Name = 'Open Sans'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 2
       Items.Strings = (
         'LT_all'
         'LT_SSLv2'
@@ -457,7 +455,7 @@ object FmPrincipal: TFmPrincipal
   object StatusBar1: TStatusBar
     Left = 0
     Top = 547
-    Width = 655
+    Width = 685
     Height = 19
     Panels = <
       item
@@ -466,13 +464,16 @@ object FmPrincipal: TFmPrincipal
       item
         Width = 200
       end>
+    ExplicitLeft = 8
+    ExplicitTop = 553
+    ExplicitWidth = 655
   end
   object ImageList1: TImageList
     ColorDepth = cd32Bit
-    Left = 64
-    Top = 136
+    Left = 48
+    Top = 80
     Bitmap = {
-      494C010106000900300010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106000900340010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000010B15045A0C17
@@ -745,13 +746,13 @@ object FmPrincipal: TFmPrincipal
   end
   object IdEnc: TIdEncoderMIME
     FillChar = '*'
-    Left = 144
-    Top = 80
+    Left = 120
+    Top = 56
   end
   object IdDec: TIdDecoderMIME
     FillChar = '*'
-    Left = 256
-    Top = 104
+    Left = 304
+    Top = 72
   end
   object TmProNot: TTimer
     Enabled = False
@@ -772,8 +773,8 @@ object FmPrincipal: TFmPrincipal
     Icons = ImageList2
     Visible = True
     OnDblClick = TrayIcon1DblClick
-    Left = 144
-    Top = 152
+    Left = 392
+    Top = 184
   end
   object ImageList2: TImageList
     ColorDepth = cd32Bit
@@ -782,7 +783,7 @@ object FmPrincipal: TFmPrincipal
     Left = 544
     Top = 256
     Bitmap = {
-      494C010105000900300040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010105000900340040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000000100008000000001002000000000000000
       0200000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5037,5 +5038,10 @@ object FmPrincipal: TFmPrincipal
     ConnectionType = hctWinHttp
     Left = 472
     Top = 432
+  end
+  object ACBrEnterTab1: TACBrEnterTab
+    EnterAsTab = True
+    Left = 416
+    Top = 296
   end
 end

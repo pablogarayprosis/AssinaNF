@@ -36,6 +36,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   //Application.ShowMainForm := False;
+  TStyleManager.TrySetStyle('Light');
   Application.CreateForm(TFmPrincipal, FmPrincipal);
   Application.CreateForm(TFmMsg, FmMsg);
   Application.CreateForm(TFmGeral, FmGeral);
