@@ -5,17 +5,16 @@ uses
   uPrincipal in 'uPrincipal.pas' {FmPrincipal},
   Vcl.Themes,
   Vcl.Styles,
-  XSuperObject in 'XSuperObject.pas',
   Winapi.Windows,
   UMsg in 'UMsg.pas' {FmMsg},
   Geral in 'Geral.pas' {FmGeral},
-  superdate in '..\..\Componentes\superobject\superdate.pas',
-  superobject in '..\..\Componentes\superobject\superobject.pas',
-  supertimezone in '..\..\Componentes\superobject\supertimezone.pas',
-  supertypes in '..\..\Componentes\superobject\supertypes.pas',
-  superxmlparser in '..\..\Componentes\superobject\superxmlparser.pas',
-  uApi in '..\REP\Services\uApi.pas',
-  uTipos in '..\REP\Geral\uTipos.pas';
+  superdate in 'superobject\superdate.pas',
+  superobject in 'superobject\superobject.pas',
+  supertimezone in 'superobject\supertimezone.pas',
+  supertypes in 'superobject\supertypes.pas',
+  superxmlparser in 'superobject\superxmlparser.pas',
+  uApi in 'uApi.pas',
+  uTipos in 'uTipos.pas';
 
 {$R *.res}
    var

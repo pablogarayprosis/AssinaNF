@@ -115,7 +115,6 @@
             <Form>FmPrincipal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="XSuperObject.pas"/>
         <DCCReference Include="UMsg.pas">
             <Form>FmMsg</Form>
         </DCCReference>
@@ -123,13 +122,13 @@
             <Form>FmGeral</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="..\..\Componentes\superobject\superdate.pas"/>
-        <DCCReference Include="..\..\Componentes\superobject\superobject.pas"/>
-        <DCCReference Include="..\..\Componentes\superobject\supertimezone.pas"/>
-        <DCCReference Include="..\..\Componentes\superobject\supertypes.pas"/>
-        <DCCReference Include="..\..\Componentes\superobject\superxmlparser.pas"/>
-        <DCCReference Include="..\REP\Services\uApi.pas"/>
-        <DCCReference Include="..\REP\Geral\uTipos.pas"/>
+        <DCCReference Include="superobject\superdate.pas"/>
+        <DCCReference Include="superobject\superobject.pas"/>
+        <DCCReference Include="superobject\supertimezone.pas"/>
+        <DCCReference Include="superobject\supertypes.pas"/>
+        <DCCReference Include="superobject\superxmlparser.pas"/>
+        <DCCReference Include="uApi.pas"/>
+        <DCCReference Include="uTipos.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

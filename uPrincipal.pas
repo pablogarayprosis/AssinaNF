@@ -6,7 +6,7 @@ uses
    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
    Vcl.ExtCtrls, Vcl.ImgList, Vcl.Imaging.pngimage, IdMultipartFormData, IniFiles, Vcl.ToolWin, Vcl.ComCtrls, DCPcrypt2, DCPsha1, IdCoder, IdCoder3to4,
    IdCoderMIME, IdBaseComponent, ACBrNFe, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, IdGlobal, IdExplicitTLSClientServerBase,
-   System.IOUtils, XSuperObject, Vcl.AppEvnts, DateUtils, pcnConversaoNFe, PSAPI, TlHelp32, Registry, ACBrDFeSSL, Shellapi, Vcl.ExtDlgs, ACBrEAD,
+   System.IOUtils, Vcl.AppEvnts, DateUtils, pcnConversaoNFe, PSAPI, TlHelp32, Registry, ACBrDFeSSL, Shellapi, Vcl.ExtDlgs, ACBrEAD,
    ACBrUtil, ACBrDFeUtil, ACBrBase, ACBrDFe, IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL, blcksock, SuperObject, RestClient,
    RestUtils, HttpConnection, ActiveX, ACBrEnterTab;
 
@@ -599,28 +599,6 @@ var
   postString: String;
 begin
    BuscaAssinaNota;
-//  MyClass := TMyClass.Create;
-//            MyClass.Download(BASEURL +
-//                StringReplace(CAMINHO_XML_NAO_ASSINADO, '$emp', '237', []) +
-//                '/' + '43251211296369000100550020000010431869113395-nfe.xml',
-//                diretorioXmlBaixado + '43251211296369000100550020000010431869113395-nfe.xml');
-//  Api := TApi.Create('AFFINCONF');
-//  try
-//     try
-//        postString := 'CONTROLE=010889&FUNCAO=receberArquivo' +
-//         '&diretorio_upload=' + StringReplace(CAMINHO_XML_ASSINADO, '$emp', '237', []) + '/';
-//
-//        api.Post('buscadados.php', postString, 'arquivo='+diretorioXmlAssinado + '43251211296369000100550020000010431869113395-nfe.xml');
-//        ShowMessage(api.responseBody);
-//     except
-//        on e:Exception do
-//           ShowMessage(e.message);
-//
-//     end;
-//  finally
-//     api.Destroy;
-//  end;
-//  showMessage('concluído');
 end;
 
 function TFmPrincipal.manifesto(arq: TStrings; xml: string): TStrings;

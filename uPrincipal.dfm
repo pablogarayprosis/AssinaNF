@@ -53,7 +53,6 @@ object FmPrincipal: TFmPrincipal
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitTop = 76
     ExplicitWidth = 134
   end
   object LbHomologacao: TLabel
@@ -97,8 +96,6 @@ object FmPrincipal: TFmPrincipal
     TabOrder = 3
     Visible = False
     StyleElements = []
-    ExplicitTop = 94
-    ExplicitWidth = 655
     object Image2: TImage
       Left = 49
       Top = 20
@@ -140,7 +137,6 @@ object FmPrincipal: TFmPrincipal
     ShowCaptions = True
     TabOrder = 1
     StyleElements = [seFont]
-    ExplicitWidth = 655
     object TbConf: TToolButton
       Left = 0
       Top = 0
@@ -187,8 +183,6 @@ object FmPrincipal: TFmPrincipal
     ParentFont = False
     ScrollBars = ssVertical
     TabOrder = 2
-    ExplicitTop = 232
-    ExplicitWidth = 655
   end
   object PnConf: TPanel
     AlignWithMargins = True
@@ -464,16 +458,13 @@ object FmPrincipal: TFmPrincipal
       item
         Width = 200
       end>
-    ExplicitLeft = 8
-    ExplicitTop = 553
-    ExplicitWidth = 655
   end
   object ImageList1: TImageList
     ColorDepth = cd32Bit
     Left = 48
     Top = 80
     Bitmap = {
-      494C010106000900340010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106000900380010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000010B15045A0C17
@@ -783,7 +774,7 @@ object FmPrincipal: TFmPrincipal
     Left = 544
     Top = 256
     Bitmap = {
-      494C010105000900340040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010105000900380040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000000100008000000001002000000000000000
       0200000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
