@@ -19,6 +19,6 @@ Utilizado para comujnicação com a api.
 
 Disponível no servidor-prosis em E:\Desenvolvimento\Componentes\alcinoe
 
-Instalar o dpk que está na pasta source.
+Instalar o pacote pelo arquivo Alcinoe_dxe2.dpk que está na pasta source.
 Adicionar no library path as pastas source e resource
 
