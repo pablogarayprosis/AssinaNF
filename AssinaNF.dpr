@@ -14,7 +14,8 @@ uses
   supertypes in 'superobject\supertypes.pas',
   superxmlparser in 'superobject\superxmlparser.pas',
   uApi in 'uApi.pas',
-  uTipos in 'uTipos.pas';
+  uTipos in 'uTipos.pas',
+  uComum in 'uComum.pas';
 
 {$R *.res}
    var

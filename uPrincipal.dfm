@@ -4,7 +4,7 @@ object FmPrincipal: TFmPrincipal
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'AFFINCO NF - AssinaNF - PROSIS Inform'#225'tica'
-  ClientHeight = 566
+  ClientHeight = 589
   ClientWidth = 685
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,10 +12,12 @@ object FmPrincipal: TFmPrincipal
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 110
   TextHeight = 16
@@ -42,10 +44,10 @@ object FmPrincipal: TFmPrincipal
   object LbStatus: TLabel
     AlignWithMargins = True
     Left = 3
-    Top = 121
+    Top = 76
     Width = 679
     Height = 18
-    Align = alBottom
+    Align = alTop
     Caption = 'Aguardando notas...'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -60,29 +62,30 @@ object FmPrincipal: TFmPrincipal
     Left = 3
     Top = 51
     Width = 679
-    Height = 16
+    Height = 22
     Align = alTop
     Caption = 'Ambiente de homologa'#231#227'o'
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clGray
-    Font.Height = -13
+    Font.Color = 4227327
+    Font.Height = -18
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     Visible = False
     StyleElements = [seBorder]
-    ExplicitWidth = 152
+    ExplicitWidth = 210
   end
   object PnAviso: TPanel
-    Left = 0
-    Top = 139
-    Width = 685
+    AlignWithMargins = True
+    Left = 4
+    Top = 98
+    Width = 677
     Height = 74
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Align = alBottom
+    Align = alTop
     BevelOuter = bvNone
     Caption = 'Login inv'#225'lido. Reveja suas configura'#231#245'es'
     Color = 15791103
@@ -163,15 +166,16 @@ object FmPrincipal: TFmPrincipal
     end
   end
   object MmLog: TMemo
-    Left = 0
-    Top = 213
-    Width = 685
-    Height = 334
+    AlignWithMargins = True
+    Left = 4
+    Top = 280
+    Width = 677
+    Height = 286
     Margins.Left = 4
     Margins.Top = 4
     Margins.Right = 4
     Margins.Bottom = 4
-    Align = alBottom
+    Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
@@ -186,8 +190,8 @@ object FmPrincipal: TFmPrincipal
   end
   object PnConf: TPanel
     AlignWithMargins = True
-    Left = -9
-    Top = 9
+    Left = 475
+    Top = 477
     Width = 685
     Height = 547
     Margins.Left = 4
@@ -448,7 +452,7 @@ object FmPrincipal: TFmPrincipal
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 547
+    Top = 570
     Width = 685
     Height = 19
     Panels = <
@@ -459,12 +463,105 @@ object FmPrincipal: TFmPrincipal
         Width = 200
       end>
   end
+  object PnModoTeste: TPanel
+    AlignWithMargins = True
+    Left = 3
+    Top = 179
+    Width = 679
+    Height = 94
+    Align = alTop
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+    Visible = False
+    StyleElements = [seBorder]
+    object Label7: TLabel
+      Left = 0
+      Top = 78
+      Width = 679
+      Height = 16
+      Align = alBottom
+      Alignment = taRightJustify
+      Caption = 'ESC para fechar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      StyleElements = [seBorder]
+      ExplicitLeft = 586
+      ExplicitWidth = 93
+    end
+    object Label9: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 24
+      Width = 673
+      Height = 16
+      Align = alTop
+      Caption = 'O modo teste desabilita o uso do certificado digital.'
+      ExplicitWidth = 293
+    end
+    object Label11: TLabel
+      Left = 48
+      Top = 61
+      Width = 149
+      Height = 18
+      Caption = 'Modo teste desativado'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label12: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 673
+      Height = 18
+      Align = alTop
+      Caption = 'Modo Teste'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitWidth = 85
+    end
+    object BtModoTeste: TBitBtn
+      Left = 203
+      Top = 57
+      Width = 102
+      Height = 28
+      Caption = 'Ativar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Kind = bkYes
+      NumGlyphs = 2
+      ParentFont = False
+      TabOrder = 0
+      OnClick = BtModoTesteClick
+    end
+  end
   object ImageList1: TImageList
     ColorDepth = cd32Bit
     Left = 48
     Top = 80
     Bitmap = {
-      494C010106000900380010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101060009004C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000010B15045A0C17
@@ -745,17 +842,17 @@ object FmPrincipal: TFmPrincipal
     Left = 304
     Top = 72
   end
-  object TmProNot: TTimer
+  object TmVoltarBuscar: TTimer
     Enabled = False
-    Interval = 5000
-    OnTimer = TmProNotTimer
+    Interval = 10000
+    OnTimer = TmVoltarBuscarTimer
     Left = 552
     Top = 168
   end
-  object TmFtp: TTimer
+  object TmBuscar: TTimer
     Enabled = False
     Interval = 5000
-    OnTimer = TmFtpTimer
+    OnTimer = TmBuscarTimer
     Left = 552
     Top = 96
   end
@@ -771,10 +868,10 @@ object FmPrincipal: TFmPrincipal
     ColorDepth = cd32Bit
     Height = 64
     Width = 64
-    Left = 544
-    Top = 256
+    Left = 40
+    Top = 136
     Bitmap = {
-      494C010105000900380040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101050009004C0040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000000100008000000001002000000000000000
       0200000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5006,8 +5103,6 @@ object FmPrincipal: TFmPrincipal
       000000000000}
   end
   object ApplicationEvents1: TApplicationEvents
-    OnException = ApplicationEvents1Exception
-    OnMinimize = ApplicationEvents1Minimize
     Left = 544
     Top = 16
   end

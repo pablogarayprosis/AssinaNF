@@ -9,8 +9,8 @@ uses
 
 const
 {$IFDEF DEBUG}
-    BASEURL = 'http://localhost/affinconfgithub/';
-// BASEURL_AFFINCONF = 'https://farol6592.c33.integrator.host/';
+  // BASEURL = 'http://localhost/affinconfgithub/';
+   BASEURL = 'https://farol6592.c33.integrator.host/';
 {$ELSE}
   // BASEURL_AFFINCONF = 'http://localhost/affinconfgithub/';
    BASEURL = 'https://farol6592.c33.integrator.host/';
@@ -563,9 +563,7 @@ begin
          on e: Exception do
          begin
 
-            fResponseBody := 'Erro: ' + AnsiStrTo8bitUnicodeString(e.message) + '|' +
-               AHTTPResponseHeader.date + '|' + AHTTPResponseHeader.Warning + '|' +
-               AHTTPResponseHeader.ReasonPhrase;
+            fResponseBody := 'Erro: ' + AnsiStrTo8bitUnicodeString(e.message);
             fResponseHeader := AnsiStrTo8bitUnicodeString(AHTTPResponseHeader.RawHeaderText);
             fStatusCode := AHTTPResponseHeader.StatusCode;
          end;
