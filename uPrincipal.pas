@@ -256,7 +256,7 @@ end;
 
 function TFmPrincipal.buscaToken: Boolean;
 var
-   S, postString: string;
+   S, aux, postString: string;
    obj, obj2: ISuperObject;
    i: Integer;
 begin
@@ -265,7 +265,12 @@ begin
       postString := postString + '&FUNCAO=Buscatoken';
       postString := postString + '&COD_EMPRESA=' + codigoEmpresa;
       S := Post(URL_API, postString, '');
-      obj := SO(S);
+      obj2 := SO(S);
+
+      aux := obj2.AsObject.S['registros'];
+
+      obj := SO(aux);
+
       for i := 0 to obj.AsArray.Length - 1 do
       begin
          obj2 := SO(obj.AsArray.S[i]);
@@ -273,6 +278,8 @@ begin
          token := obj2.AsObject.S['token'];
       end;
       Result := True;
+
+
    except
       on E: Exception do
       begin
