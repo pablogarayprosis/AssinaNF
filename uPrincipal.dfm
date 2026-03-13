@@ -4,12 +4,12 @@ object FmPrincipal: TFmPrincipal
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'AFFINCO NF - AssinaNF - PROSIS Inform'#225'tica'
-  ClientHeight = 589
-  ClientWidth = 685
+  ClientHeight = 479
+  ClientWidth = 697
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -13
+  Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   KeyPreview = True
@@ -19,109 +19,110 @@ object FmPrincipal: TFmPrincipal
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnShow = FormShow
-  PixelsPerInch = 110
-  TextHeight = 16
+  PixelsPerInch = 96
+  TextHeight = 13
   object LbEmp: TLabel
     AlignWithMargins = True
-    Left = 4
-    Top = 26
-    Width = 677
-    Height = 22
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
+    Left = 3
+    Top = 22
+    Width = 691
+    Height = 18
+    Margins.Bottom = 2
     Align = alTop
     Caption = 'Nome da empresa'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlue
-    Font.Height = -18
+    Font.Height = -15
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentFont = False
     StyleElements = [seBorder]
-    ExplicitWidth = 163
+    ExplicitTop = 25
+    ExplicitWidth = 133
   end
   object LbStatus: TLabel
     AlignWithMargins = True
-    Left = 3
-    Top = 76
-    Width = 679
-    Height = 18
+    Left = 2
+    Top = 66
+    Width = 693
+    Height = 14
+    Margins.Left = 2
+    Margins.Top = 2
+    Margins.Right = 2
+    Margins.Bottom = 2
     Align = alTop
     Caption = 'Aguardando notas...'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -15
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    ExplicitWidth = 134
+    ExplicitTop = 69
+    ExplicitWidth = 112
   end
   object LbHomologacao: TLabel
     AlignWithMargins = True
-    Left = 3
-    Top = 51
-    Width = 679
-    Height = 22
+    Left = 2
+    Top = 44
+    Width = 693
+    Height = 18
+    Margins.Left = 2
+    Margins.Top = 2
+    Margins.Right = 2
+    Margins.Bottom = 2
     Align = alTop
     Caption = 'Ambiente de homologa'#231#227'o'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 4227327
-    Font.Height = -18
+    Font.Height = -15
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
     Visible = False
     StyleElements = [seBorder]
-    ExplicitWidth = 210
+    ExplicitTop = 47
+    ExplicitWidth = 173
   end
   object PnAviso: TPanel
     AlignWithMargins = True
-    Left = 4
-    Top = 98
-    Width = 677
-    Height = 74
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 3
+    Top = 85
+    Width = 691
+    Height = 60
     Align = alTop
     BevelOuter = bvNone
     Caption = 'Login inv'#225'lido. Reveja suas configura'#231#245'es'
     Color = 15791103
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clRed
-    Font.Height = -14
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     ParentBackground = False
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 2
     Visible = False
     StyleElements = []
+    ExplicitTop = 88
+    ExplicitWidth = 551
     object Image2: TImage
-      Left = 49
-      Top = 20
-      Width = 30
-      Height = 29
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 40
+      Top = 16
+      Width = 24
+      Height = 24
       AutoSize = True
     end
     object Label8: TLabel
-      Left = 640
-      Top = 7
-      Width = 12
-      Height = 21
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 520
+      Top = 6
+      Width = 10
+      Height = 18
+      Margins.Bottom = 2
       Caption = 'X'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGray
-      Font.Height = -17
+      Font.Height = -15
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
@@ -131,15 +132,17 @@ object FmPrincipal: TFmPrincipal
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 685
-    Height = 22
+    Width = 697
+    Height = 19
     AutoSize = True
-    ButtonWidth = 93
+    ButtonHeight = 19
+    ButtonWidth = 81
     Caption = 'ToolBar1'
     List = True
     ShowCaptions = True
-    TabOrder = 1
+    TabOrder = 0
     StyleElements = [seFont]
+    ExplicitWidth = 557
     object TbConf: TToolButton
       Left = 0
       Top = 0
@@ -149,7 +152,7 @@ object FmPrincipal: TFmPrincipal
       OnClick = TbConfClick
     end
     object TbPararTimer: TToolButton
-      Left = 97
+      Left = 85
       Top = 0
       AutoSize = True
       Caption = 'Parar Timer'
@@ -157,7 +160,7 @@ object FmPrincipal: TFmPrincipal
       OnClick = TbPararTimerClick
     end
     object TbBuscarNotas: TToolButton
-      Left = 182
+      Left = 156
       Top = 0
       AutoSize = True
       Caption = 'Buscar Notas'
@@ -167,240 +170,329 @@ object FmPrincipal: TFmPrincipal
   end
   object MmLog: TMemo
     AlignWithMargins = True
-    Left = 4
-    Top = 280
-    Width = 677
-    Height = 286
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 3
+    Top = 232
+    Width = 691
+    Height = 225
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -15
+    Font.Height = -12
     Font.Name = 'Consolas'
     Font.Style = []
     ParentFont = False
     ScrollBars = ssVertical
-    TabOrder = 2
+    TabOrder = 1
+    ExplicitLeft = 85
+    ExplicitTop = 241
+    ExplicitWidth = 551
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 460
+    Width = 697
+    Height = 19
+    Margins.Left = 2
+    Margins.Top = 2
+    Margins.Right = 2
+    Margins.Bottom = 2
+    Panels = <
+      item
+        Width = 200
+      end
+      item
+        Width = 200
+      end>
+    ExplicitWidth = 557
+  end
+  object PnModoTeste: TPanel
+    AlignWithMargins = True
+    Left = 2
+    Top = 150
+    Width = 693
+    Height = 77
+    Margins.Left = 2
+    Margins.Top = 2
+    Margins.Right = 2
+    Margins.Bottom = 2
+    Align = alTop
+    Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+    Visible = False
+    StyleElements = [seBorder]
+    ExplicitWidth = 553
+    object Label7: TLabel
+      Left = 0
+      Top = 64
+      Width = 693
+      Height = 13
+      Margins.Left = 2
+      Margins.Top = 2
+      Margins.Right = 2
+      Margins.Bottom = 2
+      Align = alBottom
+      Alignment = taRightJustify
+      Caption = 'ESC para fechar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGray
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      StyleElements = [seBorder]
+      ExplicitLeft = 474
+      ExplicitTop = 63
+      ExplicitWidth = 78
+    end
+    object Label9: TLabel
+      AlignWithMargins = True
+      Left = 2
+      Top = 20
+      Width = 689
+      Height = 13
+      Margins.Left = 2
+      Margins.Top = 2
+      Margins.Right = 2
+      Margins.Bottom = 2
+      Align = alTop
+      Caption = 'O modo teste desabilita o uso do certificado digital.'
+      ExplicitWidth = 245
+    end
+    object Label11: TLabel
+      Left = 39
+      Top = 50
+      Width = 125
+      Height = 14
+      Margins.Left = 2
+      Margins.Top = 2
+      Margins.Right = 2
+      Margins.Bottom = 2
+      Caption = 'Modo teste desativado'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label12: TLabel
+      AlignWithMargins = True
+      Left = 2
+      Top = 2
+      Width = 689
+      Height = 14
+      Margins.Left = 2
+      Margins.Top = 2
+      Margins.Right = 2
+      Margins.Bottom = 2
+      Align = alTop
+      Caption = 'Modo Teste'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitWidth = 72
+    end
+    object BtModoTeste: TBitBtn
+      Left = 165
+      Top = 46
+      Width = 83
+      Height = 23
+      Margins.Left = 2
+      Margins.Top = 2
+      Margins.Right = 2
+      Margins.Bottom = 2
+      Caption = 'Ativar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      Kind = bkYes
+      NumGlyphs = 2
+      ParentFont = False
+      TabOrder = 0
+      OnClick = BtModoTesteClick
+    end
   end
   object PnConf: TPanel
     AlignWithMargins = True
-    Left = 475
-    Top = 477
-    Width = 685
-    Height = 547
-    Margins.Left = 4
-    Margins.Top = 4
-    Margins.Right = 4
-    Margins.Bottom = 4
+    Left = 3
+    Top = 232
+    Width = 691
+    Height = 225
+    Align = alClient
     BevelOuter = bvNone
     Color = clWhite
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -15
+    Font.Height = -12
     Font.Name = 'Open Sans'
     Font.Style = []
     ParentBackground = False
     ParentFont = False
-    TabOrder = 0
+    TabOrder = 5
     Visible = False
     StyleElements = []
     OnClick = PnConfClick
+    ExplicitLeft = 129
+    ExplicitTop = -164
+    ExplicitWidth = 551
+    ExplicitHeight = 453
     object Label1: TLabel
       AlignWithMargins = True
-      Left = 4
-      Top = 4
-      Width = 677
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 3
+      Top = 3
+      Width = 685
+      Height = 18
+      Margins.Bottom = 2
       Align = alTop
       Alignment = taCenter
       Caption = 'Configura'#231#245'es'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 12615680
-      Font.Height = -18
+      Font.Height = -15
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ParentFont = False
       StyleElements = [seBorder]
-      ExplicitWidth = 130
+      ExplicitWidth = 107
     end
     object Label2: TLabel
-      Left = 21
-      Top = 85
-      Width = 141
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 17
+      Top = 69
+      Width = 116
+      Height = 15
+      Margins.Bottom = 2
       Caption = 'C'#243'digo da empresa: '
     end
     object Label3: TLabel
-      Left = 21
-      Top = 122
-      Width = 110
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 17
+      Top = 99
+      Width = 88
+      Height = 15
+      Margins.Bottom = 2
       Caption = 'C'#243'digo da filial: '
     end
     object Label4: TLabel
-      Left = 21
-      Top = 233
-      Width = 58
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 17
+      Top = 189
+      Width = 47
+      Height = 15
+      Margins.Bottom = 2
       Caption = 'Usu'#225'rio:'
       Visible = False
     end
     object Label5: TLabel
-      Left = 21
-      Top = 196
-      Width = 46
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 17
+      Top = 159
+      Width = 39
+      Height = 15
+      Margins.Bottom = 2
       Caption = 'Senha:'
       Visible = False
     end
     object Label10: TLabel
-      Left = 21
-      Top = 159
-      Width = 28
-      Height = 22
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
+      Left = 17
+      Top = 129
+      Width = 26
+      Height = 15
+      Margins.Bottom = 2
       Caption = 'SSL:'
     end
     object EdEmp: TEdit
-      Left = 160
-      Top = 82
-      Width = 177
-      Height = 30
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 130
+      Top = 67
+      Width = 144
+      Height = 23
       Alignment = taRightJustify
       NumbersOnly = True
       TabOrder = 0
     end
     object EdFil: TEdit
-      Left = 160
-      Top = 119
-      Width = 177
-      Height = 30
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 130
+      Top = 97
+      Width = 144
+      Height = 23
       Alignment = taRightJustify
       NumbersOnly = True
       TabOrder = 1
     end
     object EdUsu: TEdit
-      Left = 160
-      Top = 193
-      Width = 177
-      Height = 30
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 130
+      Top = 157
+      Width = 144
+      Height = 23
       TabOrder = 3
       Text = 'prosis'
       Visible = False
     end
     object EdSen: TEdit
-      Left = 160
-      Top = 230
-      Width = 177
-      Height = 30
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 130
+      Top = 187
+      Width = 144
+      Height = 23
       TabOrder = 4
       Text = 'prosis'
       Visible = False
     end
     object GroupBox1: TGroupBox
-      Left = 21
-      Top = 268
-      Width = 316
-      Height = 165
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 17
+      Top = 218
+      Width = 257
+      Height = 134
       Caption = ' Certificado Digital '
       TabOrder = 7
       object Label6: TLabel
-        Left = 20
-        Top = 101
-        Width = 126
-        Height = 22
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
+        Left = 16
+        Top = 82
+        Width = 99
+        Height = 15
+        Margins.Bottom = 2
         Caption = 'PIN do certificado:'
       end
       object LbCer: TLabel
-        Left = 20
-        Top = 71
-        Width = 222
-        Height = 22
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
+        Left = 16
+        Top = 58
+        Width = 178
+        Height = 15
+        Margins.Bottom = 2
         Caption = 'Nenhum certificado selecionado'
       end
       object Button1: TButton
-        Left = 20
-        Top = 33
-        Width = 168
-        Height = 31
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 16
+        Top = 27
+        Width = 137
+        Height = 25
         Caption = 'Selecionar'
         TabOrder = 0
         OnClick = Button1Click
       end
       object EdPin: TEdit
-        Left = 20
-        Top = 124
-        Width = 177
-        Height = 30
-        Margins.Left = 4
-        Margins.Top = 4
-        Margins.Right = 4
-        Margins.Bottom = 4
+        Left = 16
+        Top = 101
+        Width = 144
+        Height = 23
         TabOrder = 1
       end
     end
     object RadioGroup1: TRadioGroup
-      Left = 358
-      Top = 70
-      Width = 293
-      Height = 59
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 291
+      Top = 57
+      Width = 238
+      Height = 48
       Caption = 'Ambiente'
       Columns = 2
       ItemIndex = 1
@@ -410,32 +502,24 @@ object FmPrincipal: TFmPrincipal
       TabOrder = 5
     end
     object BtConf: TButton
-      Left = 550
-      Top = 498
-      Width = 84
-      Height = 33
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 327
+      Top = 315
+      Width = 68
+      Height = 26
       Caption = 'Salvar'
       ImageIndex = 0
       TabOrder = 6
       OnClick = BtConfClick
     end
     object CbSSL: TComboBox
-      Left = 160
-      Top = 156
-      Width = 177
-      Height = 30
-      Margins.Left = 4
-      Margins.Top = 4
-      Margins.Right = 4
-      Margins.Bottom = 4
+      Left = 130
+      Top = 127
+      Width = 144
+      Height = 23
       Style = csDropDownList
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack
-      Font.Height = -15
+      Font.Height = -12
       Font.Name = 'Open Sans'
       Font.Style = []
       ParentFont = False
@@ -450,118 +534,12 @@ object FmPrincipal: TFmPrincipal
         'LT_SSHv2')
     end
   end
-  object StatusBar1: TStatusBar
-    Left = 0
-    Top = 570
-    Width = 685
-    Height = 19
-    Panels = <
-      item
-        Width = 200
-      end
-      item
-        Width = 200
-      end>
-  end
-  object PnModoTeste: TPanel
-    AlignWithMargins = True
-    Left = 3
-    Top = 179
-    Width = 679
-    Height = 94
-    Align = alTop
-    Alignment = taLeftJustify
-    BevelOuter = bvNone
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 5
-    Visible = False
-    StyleElements = [seBorder]
-    object Label7: TLabel
-      Left = 0
-      Top = 78
-      Width = 679
-      Height = 16
-      Align = alBottom
-      Alignment = taRightJustify
-      Caption = 'ESC para fechar'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clGray
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      StyleElements = [seBorder]
-      ExplicitLeft = 586
-      ExplicitWidth = 93
-    end
-    object Label9: TLabel
-      AlignWithMargins = True
-      Left = 3
-      Top = 24
-      Width = 673
-      Height = 16
-      Align = alTop
-      Caption = 'O modo teste desabilita o uso do certificado digital.'
-      ExplicitWidth = 293
-    end
-    object Label11: TLabel
-      Left = 48
-      Top = 61
-      Width = 149
-      Height = 18
-      Caption = 'Modo teste desativado'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -15
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-    end
-    object Label12: TLabel
-      AlignWithMargins = True
-      Left = 3
-      Top = 3
-      Width = 673
-      Height = 18
-      Align = alTop
-      Caption = 'Modo Teste'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -15
-      Font.Name = 'Tahoma'
-      Font.Style = [fsBold]
-      ParentFont = False
-      ExplicitWidth = 85
-    end
-    object BtModoTeste: TBitBtn
-      Left = 203
-      Top = 57
-      Width = 102
-      Height = 28
-      Caption = 'Ativar'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -15
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      Kind = bkYes
-      NumGlyphs = 2
-      ParentFont = False
-      TabOrder = 0
-      OnClick = BtModoTesteClick
-    end
-  end
   object ImageList1: TImageList
     ColorDepth = cd32Bit
     Left = 48
     Top = 80
     Bitmap = {
-      494C0101060009004C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106000900500010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000010B15045A0C17
@@ -871,7 +849,7 @@ object FmPrincipal: TFmPrincipal
     Left = 40
     Top = 136
     Bitmap = {
-      494C0101050009004C0040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010105000900500040004000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000000100008000000001002000000000000000
       0200000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -5129,5 +5107,19 @@ object FmPrincipal: TFmPrincipal
     EnterAsTab = True
     Left = 416
     Top = 296
+  end
+  object ACBrNFe1: TACBrNFe
+    Configuracoes.Geral.SSLLib = libNone
+    Configuracoes.Geral.SSLCryptLib = cryNone
+    Configuracoes.Geral.SSLHttpLib = httpNone
+    Configuracoes.Geral.SSLXmlSignLib = xsNone
+    Configuracoes.Geral.FormatoAlerta = 'TAG:%TAGNIVEL% ID:%ID%/%TAG%(%DESCRICAO%) - %MSG%.'
+    Configuracoes.Arquivos.OrdenacaoPath = <>
+    Configuracoes.WebServices.UF = 'SP'
+    Configuracoes.WebServices.AguardarConsultaRet = 0
+    Configuracoes.WebServices.QuebradeLinha = '|'
+    Configuracoes.RespTec.IdCSRT = 0
+    Left = 488
+    Top = 200
   end
 end

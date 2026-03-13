@@ -17,7 +17,7 @@ const
    COD_ATUALIZADOR = 92;
    CAMINHO_XML_NAO_ASSINADO = 'nfephp/Empresas/$emp/1/Nfe/$amb/entradas/A3/';
    CAMINHO_XML_ASSINADO = 'nfephp/Empresas/$emp/1/Nfe/$amb/';
-   VERSAO = '2026.03.06.01';
+   VERSAO = '2026.03.13.01';
 
 type TMyClass = class
   private
@@ -30,17 +30,6 @@ type TMyClass = class
 
 type
    TFmPrincipal = class(TForm)
-      PnConf: TPanel;
-      Label1: TLabel;
-      Label2: TLabel;
-      EdEmp: TEdit;
-      EdFil: TEdit;
-      Label3: TLabel;
-      BtConf: TButton;
-      Label4: TLabel;
-      Label5: TLabel;
-      EdUsu: TEdit;
-      EdSen: TEdit;
       ImageList1: TImageList;
       ToolBar1: TToolBar;
       IdEnc: TIdEncoderMIME;
@@ -49,11 +38,6 @@ type
     TmVoltarBuscar: TTimer;
       MmLog: TMemo;
     TmBuscar: TTimer;
-      GroupBox1: TGroupBox;
-      Button1: TButton;
-      Label6: TLabel;
-      EdPin: TEdit;
-      LbCer: TLabel;
       TrayIcon1: TTrayIcon;
       ImageList2: TImageList;
       LbEmp: TLabel;
@@ -62,10 +46,7 @@ type
       Image2: TImage;
       Label8: TLabel;
       OpenPictureDialog1: TOpenPictureDialog;
-      RadioGroup1: TRadioGroup;
       IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL;
-      CbSSL: TComboBox;
-      Label10: TLabel;
       RestClient1: TRestClient;
     TbBuscarNotas: TToolButton;
     TbPararTimer: TToolButton;
@@ -79,6 +60,26 @@ type
     Label9: TLabel;
     Label11: TLabel;
     Label12: TLabel;
+    PnConf: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label10: TLabel;
+    EdEmp: TEdit;
+    EdFil: TEdit;
+    EdUsu: TEdit;
+    EdSen: TEdit;
+    GroupBox1: TGroupBox;
+    Label6: TLabel;
+    LbCer: TLabel;
+    Button1: TButton;
+    EdPin: TEdit;
+    RadioGroup1: TRadioGroup;
+    BtConf: TButton;
+    CbSSL: TComboBox;
+    ACBrNFe1: TACBrNFe;
       procedure FormShow(Sender: TObject);
       procedure TbConfClick(Sender: TObject);
       procedure Button1Click(Sender: TObject);
@@ -89,12 +90,12 @@ type
       procedure BtConfClick(Sender: TObject);
       procedure Label8Click(Sender: TObject);
       procedure PnConfClick(Sender: TObject);
-      procedure FormDestroy(Sender: TObject);
     procedure TbPararTimerClick(Sender: TObject);
     procedure TbBuscarNotasClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtModoTesteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 
 
    private
@@ -105,7 +106,6 @@ type
       diretorioXmlBaixado, caminhoXMLNaoAssinado, caminhoXMLAssinado: string;
       pararThread, modoTeste: Boolean;
       mes, ano, codigoAmbiente: Integer;
-      ACBrNFe1: TACBrNFe;
       function GravaArquivoConfiguracao: Boolean;
       procedure ConfigurarAcbr;
       function LeArquivoConfiguracao: Boolean;
@@ -341,6 +341,7 @@ begin
          ShowMessage('Configuração salva com sucesso!');
          LeArquivoConfiguracao;
          PnConf.Visible := False;
+         MmLog.Visible := True;
          ConfiguraCertificadoDigital;
          if Buscadados then
             TmBuscar.Enabled := True;
@@ -428,7 +429,7 @@ begin
                   pasta := 'inutilizadas';
                end;
 
-               if Pos('carta', nomeXML) > 0 then
+               if Pos('-cc-', nomeXML) > 0 then
                begin
                   retorno := CartaCorrecao(Arquivo, nomeXML);
                   pasta := 'cartacorrecao';
@@ -565,10 +566,8 @@ begin
          slXmlAssinado.Free;
       end;
 
-      mensagem :=
-         (IntToStr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0]
-         .RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.
-         EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+      mensagem := (IntToStr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat) + ' - ' +
+                   ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
       Log('Mensagem manifesto: ' + mensagem);
       MostrarNotificacao('Manifesto de destinatario de NF', mensagem);
    except
@@ -620,11 +619,21 @@ begin
       if not modoTeste then
          retorno := ACBrNFe1.EnviarEvento(codigoAmbiente);
 
-      if ACBrNFe1.WebServices.EnvEvento.cStat <> 135 then
+      if ACBrNFe1.WebServices.EnvEvento.cStat <> 128 then
       begin
-         Log('Status: ' + IntToStr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat));
+         Log('Status: ' + IntToStr(ACBrNFe1.WebServices.EnvEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.xMotivo);
 
-         Exit;
+            Exit;
+      end
+      else
+      begin
+         if (ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 135) and
+            (ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat <> 573) then
+         begin
+            Log('Status: ' + IntToStr(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.cStat) + ' - ' + ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xMotivo);
+
+            Exit;
+         end;
       end;
 
       slXmlAssinado := TStringList.Create;
@@ -748,7 +757,7 @@ begin
 
    try
       slXmlAssinado := TStringList.Create;
-      slXmlAssinado.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.    Items[0].RetInfEvento.xml));
+      slXmlAssinado.Add(UTF8Encode(ACBrNFe1.WebServices.EnvEvento.EventoRetorno.retEvento.Items[0].RetInfEvento.xml));
 
       if FileExists(diretorioXmlAssinado + xml) then
       begin
@@ -1028,8 +1037,9 @@ begin
 
    if not FileExists(arquivoConfiguracao) then
    begin
-      PnConf.Top := 8;
-      PnConf.Left := 42;
+      PnConf.Top := 0;
+      PnConf.Left := 0;
+      MmLog.Visible := False;
       PnConf.Visible := True;
       Exit;
    end;
@@ -1062,7 +1072,10 @@ end;
 
 procedure TFmPrincipal.FormDestroy(Sender: TObject);
 begin
-   ThAssina.Terminate;
+   try
+      ThAssina.Terminate;
+   except
+   end;
 end;
 
 procedure TFmPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
@@ -1150,11 +1163,8 @@ begin
 end;
 
 procedure TFmPrincipal.FormShow(Sender: TObject);
-
 begin
-
-
-   StatusBar1.Panels[0].Text := '2026.03.06';
+   StatusBar1.Panels[0].Text := VERSAO;
 end;
 
 function TFmPrincipal.GravaArquivoConfiguracao: Boolean;
@@ -1351,6 +1361,11 @@ var
    obj: ISuperObject;
    status, erro: String;
 begin
+   if Length(S) = 0 then
+   begin
+      Result := False;
+      Exit;
+   end;
    try
       obj := SO(S);
 
